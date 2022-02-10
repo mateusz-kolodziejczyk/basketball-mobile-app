@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/teamHomeFragment">
 
+    <fragment
+        android:id="@+id/teamHomeFragment"
+        android:name="org.mk.basketballmanager.fragments.main.TeamHomeFragment"
+        android:label="TeamHomeFragment" >
+        <action
+            android:id="@+id/action_teamHomeFragment_to_rosterFragment"
+            app:destination="@id/rosterFragment" />
+        <action
+            android:id="@+id/action_teamHomeFragment_to_updateTeamFragment"
+            app:destination="@id/updateTeamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPlayerFragment"
+        android:name="org.mk.basketballmanager.fragments.main.AddPlayerFragment"
+        android:label="AddPlayerFragment" />
+    <fragment
+        android:id="@+id/rosterFragment"
+        android:name="org.mk.basketballmanager.fragments.main.RosterFragment"
+        android:label="RosterFragment"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_rosterFragment_to_addPlayerFragment"
+            app:destination="@id/addPlayerFragment" />
+        <action
+            android:id="@+id/action_rosterFragment_to_updatePlayerFragment"
+            app:destination="@id/updatePlayerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateTeamFragment"
+        android:name="org.mk.basketballmanager.fragments.main.UpdateTeamFragment"
+        android:label="UpdateTeamFragment" />
+    <fragment
+        android:id="@+id/updatePlayerFragment"
+        android:name="org.mk.basketballmanager.fragments.main.UpdatePlayerFragment"
+        android:label="UpdatePlayerFragment" >
+        <argument
+            android:name="player"
+            app:argType="org.mk.basketballmanager.models.PlayerModel" />
+    </fragment>
 </navigation>
