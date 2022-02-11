@@ -67,7 +67,7 @@ class UpdatePlayerFragment : Fragment() {
     }
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(player: PlayerModel) =
             UpdatePlayerFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_PLAYER, player)

@@ -14,7 +14,7 @@ class MainApp : Application() {
 
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        i("Playlist App started")
+        i("Basketball App started")
         players = PlayerStore(this)
         // App gets a new spotify access token each time it launches
 
