@@ -1,2 +1,2 @@
-package org.mk.playlist.helpers
+package org.mk.basketballmanager.helpers
 

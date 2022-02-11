@@ -1,23 +1,16 @@
 package org.mk.basketballmanager.app
 
 import android.app.Application
-import android.media.session.MediaController
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.Volley
+import org.mk.basketballmanager.models.datastores.TeamStore
+import org.mk.basketballmanager.helpers.addSampleData
 import org.mk.basketballmanager.models.datastores.PlayerStore
-import org.mk.playlist.BuildConfig
-import org.mk.playlist.helpers.addSampleData
-import org.mk.playlist.helpers.createTokenRequest
-import org.mk.playlist.models.data_stores.ArtistStore
-import org.mk.playlist.models.data_stores.PlaylistStore
-import org.mk.playlist.models.data_stores.TrackStore
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application() {
     lateinit var players: PlayerStore
     override fun onCreate() {
-        var addSampleData = true
+        var addSampleData = false
 
         super.onCreate()
         Timber.plant(Timber.DebugTree())

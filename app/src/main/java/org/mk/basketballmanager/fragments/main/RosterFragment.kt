@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.mk.basketballmanager.R
+import org.mk.basketballmanager.adapters.RosterAdapter
+import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentListBinding
 import org.mk.basketballmanager.databinding.FragmentSignInBinding
 import org.mk.basketballmanager.fragments.login.SignInFragment
@@ -32,14 +35,17 @@ class RosterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val layoutManager = LinearLayoutManager(view.context)
+        val app = activity?.application as MainApp
 
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = RosterAdapter(app.players.findAll(), navigateToPlayer)
     }
 
-    fun navigateToPlayer(player: PlayerModel){
+    private val navigateToPlayer = { player: PlayerModel ->
         val action = RosterFragmentDirections.actionRosterFragmentToUpdatePlayerFragment(player)
         NavHostFragment.findNavController(this).navigate(action)
     }
-
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

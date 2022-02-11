@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">BasketballManager</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="signin_header">Sign In</string>
     <string name="view_roster">View Roster</string>
+    <string name="hint_playerName">Enter Player Name</string>
+    <string name="add">Add</string>
+    <string name="update">Update</string>
+    <string name="error_no_name">Please enter a name</string>
 </resources>

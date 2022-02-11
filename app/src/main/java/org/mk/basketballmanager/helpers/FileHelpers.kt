@@ -1,4 +1,4 @@
-package org.mk.playlist.helpers
+package org.mk.basketballmanager.helpers
 
 import android.content.Context
 import timber.log.Timber.e

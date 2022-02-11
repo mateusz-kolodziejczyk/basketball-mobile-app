@@ -1,8 +1,9 @@
-package org.mk.playlist.helpers
+package org.mk.basketballmanager.helpers
 
-import org.mk.playlist.models.TrackModel
+import org.mk.basketballmanager.models.PlayerModel
+import java.util.*
 
-fun trackIDsToTracks(ids: List<String>, tracks: List<TrackModel>): List<TrackModel>{
+fun playerIDsToModels(ids: List<UUID>, players: List<PlayerModel>): List<PlayerModel>{
     // Return a list containing only elements with matching IDs
-    return tracks.filter { track -> ids.contains(track.id) }
+    return players.filter { track -> ids.contains(track.id) }
 }

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import org.mk.basketballmanager.R
-import org.mk.basketballmanager.databinding.FragmentRosterBinding
 import org.mk.basketballmanager.databinding.FragmentTeamHomeBinding
 import org.mk.basketballmanager.fragments.login.SignInFragment
 import org.mk.basketballmanager.fragments.login.SignInFragmentDirections
