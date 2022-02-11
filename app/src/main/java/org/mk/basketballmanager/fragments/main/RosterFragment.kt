@@ -38,7 +38,7 @@ class RosterFragment : Fragment() {
         val app = activity?.application as MainApp
 
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = RosterAdapter(app.players.findAll(), navigateToUpdatePlayer)
+        binding.recyclerView.adapter = RosterAdapter(app.players.findAll(), navigateToPlayerInfo)
     }
     // Menu
     // Taken from https://stackoverflow.com/a/52018980
@@ -78,8 +78,9 @@ class RosterFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-    private val navigateToUpdatePlayer = { player: PlayerModel ->
-        val action = RosterFragmentDirections.actionRosterFragmentToUpdatePlayerFragment(player)
+
+    private val navigateToPlayerInfo = { player: PlayerModel ->
+        val action = RosterFragmentDirections.actionRosterFragmentToPlayerInfoFragment(player)
         NavHostFragment.findNavController(this).navigate(action)
     }
 

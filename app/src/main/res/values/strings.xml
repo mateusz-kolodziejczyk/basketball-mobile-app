@@ -8,4 +8,6 @@
     <string name="update">Update</string>
     <string name="error_no_name">Please enter a name</string>
     <string name="search">Search</string>
+    <string name="player_image">Player Image</string>
+    <string name="delete">Delete</string>
 </resources>

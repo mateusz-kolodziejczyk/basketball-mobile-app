@@ -11,4 +11,5 @@
     <color name="primary_accent">#a34c0a</color>
     <color name="secondary">#ff00ff</color>
     <color name="secondary_accent">#20f9fc</color>
+    <color name="delete">#11CCFF</color>
 </resources>

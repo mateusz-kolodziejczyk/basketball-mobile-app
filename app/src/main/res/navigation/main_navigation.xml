@@ -33,8 +33,8 @@
             android:id="@+id/action_rosterFragment_to_addPlayerFragment"
             app:destination="@id/addPlayerFragment" />
         <action
-            android:id="@+id/action_rosterFragment_to_updatePlayerFragment"
-            app:destination="@id/updatePlayerFragment" />
+            android:id="@+id/action_rosterFragment_to_playerInfoFragment"
+            app:destination="@id/playerInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateTeamFragment"
@@ -49,6 +49,21 @@
             app:argType="org.mk.basketballmanager.models.PlayerModel" />
         <action
             android:id="@+id/action_updatePlayerFragment_to_rosterFragment"
+            app:destination="@id/rosterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerInfoFragment"
+        android:name="org.mk.basketballmanager.fragments.main.PlayerInfoFragment"
+        android:label="fragment_player_info"
+        tools:layout="@layout/fragment_player_info" >
+        <action
+            android:id="@+id/action_playerInfoFragment_to_updatePlayerFragment"
+            app:destination="@id/updatePlayerFragment" />
+        <argument
+            android:name="player"
+            app:argType="org.mk.basketballmanager.models.PlayerModel" />
+        <action
+            android:id="@+id/action_playerInfoFragment_to_rosterFragment"
             app:destination="@id/rosterFragment" />
     </fragment>
 </navigation>
