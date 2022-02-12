@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.mk.basketballmanager.R
+import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.adapters.RosterAdapter
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentListBinding
@@ -35,8 +36,13 @@ class RosterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(view.context)
-        val app = activity?.application as MainApp
 
+        val activity = activity as MainActivity
+
+        val app = activity.application as MainApp
+        // Set action bar title
+
+        activity.setActionBarTitle("Roster")
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = RosterAdapter(app.players.findAll(), navigateToPlayerInfo)
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import org.mk.basketballmanager.R
+import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentAddUpdatePlayerBinding
 import org.mk.basketballmanager.models.PlayerModel
@@ -31,7 +32,13 @@ class AddPlayerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val app = activity?.application as MainApp
+        val activity = activity as MainActivity
+
+        val app = activity.application as MainApp
+        // Set action bar title
+
+        activity.setActionBarTitle("Add Player")
+
         binding.btnAdd.text = resources.getString(R.string.add)
         binding.btnAdd.setOnClickListener { currentView ->
                 val newPlayer = PlayerModel(

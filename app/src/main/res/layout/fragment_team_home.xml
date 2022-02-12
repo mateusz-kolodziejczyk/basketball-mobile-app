@@ -5,15 +5,5 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.main.TeamHomeFragment">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/view_roster_button"
-        android:textSize="20sp"
-        android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/view_roster">
-    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

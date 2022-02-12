@@ -10,4 +10,12 @@
     <string name="search">Search</string>
     <string name="player_image">Player Image</string>
     <string name="delete">Delete</string>
+    <string name="action_share">Share</string>
+    <string name="action_send">Send</string>
+    <string name="group_communicate">Communicate</string>
+    <string name="menu_teamhome">Team Home</string>
+    <string name="menu_roster">Roster</string>
+    <string name="nav_header_title">Basketball App</string>
+    <string name="nav_header_subtitle">Team Name</string>
+    <string name="nav_header_desc">Navigation header</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import org.mk.basketballmanager.R
+import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentPlayerInfoBinding
 import org.mk.basketballmanager.models.PlayerModel
@@ -36,7 +37,12 @@ class PlayerInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val app = activity?.application as MainApp
+        val activity = activity as MainActivity
+
+        val app = activity.application as MainApp
+        // Set action bar title
+
+        activity.setActionBarTitle("Player Info")
         player?.let{ playerModel ->
             binding.name.text = playerModel.name
             binding.buttonDelete.setOnClickListener {

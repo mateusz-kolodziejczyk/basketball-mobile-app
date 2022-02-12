@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import org.mk.basketballmanager.R
+import org.mk.basketballmanager.activities.MainActivity
+import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentTeamHomeBinding
 import org.mk.basketballmanager.fragments.login.SignInFragment
 import org.mk.basketballmanager.fragments.login.SignInFragmentDirections
@@ -30,9 +32,12 @@ class TeamHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewRosterButton.setOnClickListener {
-            navigateToRoster()
-        }
+        val activity = activity as MainActivity
+
+        val app = activity.application as MainApp
+        // Set action bar title
+
+        activity.setActionBarTitle("Team Home")
     }
 
     fun navigateToRoster(){
