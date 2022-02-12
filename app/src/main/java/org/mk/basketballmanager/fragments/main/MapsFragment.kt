@@ -18,10 +18,11 @@ import com.google.android.gms.maps.model.MarkerOptions
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
-import org.mk.basketballmanager.viewmodels.TeamViewModel
+import org.mk.basketballmanager.viewmodels.LocationViewModel
+import java.math.RoundingMode
 
 class MapsFragment : Fragment() {
-    private val model: TeamViewModel by navGraphViewModels(R.id.main_navigation)
+    private val model: LocationViewModel by navGraphViewModels(R.id.main_navigation)
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -35,14 +36,14 @@ class MapsFragment : Fragment() {
          */
         var position = LatLng(25.0, 151.0)
         var zoom = googleMap.cameraPosition.zoom
-        model.getSelectedTeam().observe(viewLifecycleOwner, { selectedTeam ->
-            position = LatLng(selectedTeam.location.lat, selectedTeam.location.lng)
-            zoom = selectedTeam.location.zoom
+        model.getLocation().observe(viewLifecycleOwner, { loc ->
+            position = LatLng(loc.lat, loc.lng)
+            zoom = loc.zoom
 
         })
         val options = MarkerOptions()
             .title("Team Location")
-            .snippet("GPS : $position")
+            .snippet("GPS : ${position.latitude.toBigDecimal().setScale(3, RoundingMode.HALF_EVEN)}, ${position.longitude.toBigDecimal().setScale(3, RoundingMode.HALF_EVEN)} ")
             .draggable(true)
             .position(position)
         googleMap.addMarker(options)
@@ -54,11 +55,11 @@ class MapsFragment : Fragment() {
             }
 
             override fun onMarkerDragEnd(marker: Marker) {
-                val team = model.getSelectedTeam().value
-                team?.let{
-                    it.location.lat = marker.position.latitude
-                    it.location.lng = marker.position.longitude
-                    it.location.zoom = googleMap.cameraPosition.zoom
+                val location = model.getLocation().value
+                location?.let{
+                    it.lat = marker.position.latitude
+                    it.lng = marker.position.longitude
+                    it.zoom = googleMap.cameraPosition.zoom
                 }
             }
 

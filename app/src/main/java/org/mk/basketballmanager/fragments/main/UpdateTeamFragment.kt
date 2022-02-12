@@ -12,13 +12,14 @@ import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentUpdateTeamBinding
-import org.mk.basketballmanager.models.Location
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.models.TeamModel
+import org.mk.basketballmanager.viewmodels.LocationViewModel
 import org.mk.basketballmanager.viewmodels.TeamViewModel
 
 class UpdateTeamFragment : Fragment() {
-    private val model: TeamViewModel by navGraphViewModels(R.id.main_navigation)
+    private val teamViewModel: TeamViewModel by navGraphViewModels(R.id.main_navigation)
+    private val locationViewModel: LocationViewModel by navGraphViewModels(R.id.main_navigation)
 
     lateinit var binding: FragmentUpdateTeamBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +45,9 @@ class UpdateTeamFragment : Fragment() {
 
         activity.setActionBarTitle("Update Team Info")
         binding.updateButton.text = resources.getString(R.string.update)
-        model.getSelectedTeam().observe(viewLifecycleOwner, {  selectedTeam ->
+        teamViewModel.getSelectedTeam().observe(viewLifecycleOwner, { selectedTeam ->
             binding.updateLocationButton.setOnClickListener { _ ->
+                locationViewModel.setLocation(selectedTeam.location.copy())
                 navigateToMap()
             }
             binding.name.setText(selectedTeam.name)
@@ -56,12 +58,18 @@ class UpdateTeamFragment : Fragment() {
                     roster = selectedTeam.roster,
                     location = selectedTeam.location,
                 )
+                // If the location view model value is not null, set the location to that.
+                locationViewModel.getLocation().value?.let{
+                    updatedTeam.location = it
+                }
+
                 if(updatedTeam.name.isEmpty()){
                     Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
                         .show()
                 }
                 else{
                     app.teams.update(updatedTeam)
+                    app.currentTeam = updatedTeam
                     navigateToHome()
                 }
             }
