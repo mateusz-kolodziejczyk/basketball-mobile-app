@@ -13,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
@@ -33,15 +34,39 @@ class MapsFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         var position = LatLng(25.0, 151.0)
+        var zoom = googleMap.cameraPosition.zoom
         model.getSelectedTeam().observe(viewLifecycleOwner, { selectedTeam ->
-            position = LatLng(selectedTeam.location.lng, selectedTeam.location.lat)
-
+            position = LatLng(selectedTeam.location.lat, selectedTeam.location.lng)
+            zoom = selectedTeam.location.zoom
 
         })
+        val options = MarkerOptions()
+            .title("Team Location")
+            .snippet("GPS : $position")
+            .draggable(true)
+            .position(position)
+        googleMap.addMarker(options)
 
-        googleMap.addMarker(MarkerOptions().position(position).title("Title"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom))
+
+        googleMap.setOnMarkerDragListener(object: GoogleMap.OnMarkerDragListener {
+            override fun onMarkerDrag(marker: Marker) {
+            }
+
+            override fun onMarkerDragEnd(marker: Marker) {
+                val team = model.getSelectedTeam().value
+                team?.let{
+                    it.location.lat = marker.position.latitude
+                    it.location.lng = marker.position.longitude
+                    it.location.zoom = googleMap.cameraPosition.zoom
+                }
+            }
+
+            override fun onMarkerDragStart(marker: Marker) {
+            }
+        })
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +79,8 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        val googleMap = mapFragment?.getMapAsync(callback)
+
         val activity = activity as MainActivity
 
         val app = activity.application as MainApp
