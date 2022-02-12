@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.UpdateTeamFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.main.UpdateTeamFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="45dp"
+        android:layout_margin="8dp"
+        android:autofillHints=""
+        android:hint="@string/hint_teamName"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:imeOptions="actionDone"
+        />
+    <Button
+        android:id="@+id/update_location_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:stateListAnimator="@null"
+        android:text="@string/set_location"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/name"/>
+    <Button
+        android:id="@+id/update_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:stateListAnimator="@null"
+        android:text="@string/update"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/update_location_button"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,11 @@
             android:id="@+id/rosterFragment"
             android:icon="@drawable/ic_baseline_people_24"
             android:title="@string/menu_roster" />
-
+        <item
+            android:id="@+id/updateTeamFragment"
+            android:icon="@drawable/ic_baseline_sports_basketball_24"
+            android:title="@string/updateTeam"
+        />
     </group>
 
     <item android:title="@string/group_communicate">

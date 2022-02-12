@@ -5,28 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navGraphViewModels
+import com.google.android.material.snackbar.Snackbar
 import org.mk.basketballmanager.R
+import org.mk.basketballmanager.activities.MainActivity
+import org.mk.basketballmanager.app.MainApp
+import org.mk.basketballmanager.databinding.FragmentUpdateTeamBinding
+import org.mk.basketballmanager.models.Location
+import org.mk.basketballmanager.models.PlayerModel
+import org.mk.basketballmanager.models.TeamModel
+import org.mk.basketballmanager.viewmodels.TeamViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [UpdateTeamFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UpdateTeamFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val model: TeamViewModel by navGraphViewModels(R.id.main_navigation)
 
+    lateinit var binding: FragmentUpdateTeamBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -35,25 +32,54 @@ class UpdateTeamFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_update_team, container, false)
+        binding = FragmentUpdateTeamBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val activity = activity as MainActivity
+
+        val app = activity.application as MainApp
+        // Set action bar title
+
+        activity.setActionBarTitle("Update Team Info")
+        binding.updateButton.text = resources.getString(R.string.update)
+        model.getSelectedTeam().observe(viewLifecycleOwner, {  selectedTeam ->
+            binding.updateLocationButton.setOnClickListener { _ ->
+                navigateToMap()
+            }
+            binding.name.setText(selectedTeam.name)
+            binding.updateButton.setOnClickListener { currentView ->
+                val updatedTeam = TeamModel(
+                    id = selectedTeam.id,
+                    name = binding.name.text.toString(),
+                    roster = selectedTeam.roster,
+                    location = selectedTeam.location,
+                )
+                if(updatedTeam.name.isEmpty()){
+                    Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
+                        .show()
+                }
+                else{
+                    app.teams.update(updatedTeam)
+                    navigateToHome()
+                }
+            }
+        })
+    }
+    private fun navigateToHome(){
+        val action = UpdateTeamFragmentDirections.actionUpdateTeamFragmentToTeamHomeFragment()
+        NavHostFragment.findNavController(this).navigate(action)
+    }
+    private fun navigateToMap(){
+        val action = UpdateTeamFragmentDirections.actionUpdateTeamFragmentToMapsFragment()
+        NavHostFragment.findNavController(this).navigate(action)
+    }
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UpdateTeamFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UpdateTeamFragment().apply {
+        fun newInstance(team: PlayerModel) =
+            UpdatePlayerFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
     }

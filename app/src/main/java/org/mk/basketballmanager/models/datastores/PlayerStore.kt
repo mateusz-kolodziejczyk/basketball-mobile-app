@@ -59,4 +59,13 @@ class PlayerStore(private val context: Context) : DataStore<PlayerModel> {
         val jsonString = read(context, PLAYERS_JSON_FILE)
         players = gsonBuilder.fromJson(jsonString, listType)
     }
+
+    override fun findOne(obj: PlayerModel): PlayerModel? {
+        return players[obj.id]
+    }
+
+    override fun deleteAll() {
+        players = HashMap()
+        serialize()
+    }
 }

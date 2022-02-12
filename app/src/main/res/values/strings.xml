@@ -18,4 +18,8 @@
     <string name="nav_header_title">Basketball App</string>
     <string name="nav_header_subtitle">Team Name</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="hint_teamName">Team Name</string>
+    <string name="set_location">Set Location</string>
+    <string name="updateTeam">Update Team Info</string>
 </resources>

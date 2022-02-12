@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navGraphViewModels
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentTeamHomeBinding
 import org.mk.basketballmanager.fragments.login.SignInFragment
 import org.mk.basketballmanager.fragments.login.SignInFragmentDirections
+import org.mk.basketballmanager.viewmodels.TeamViewModel
 
 class TeamHomeFragment : Fragment() {
     private lateinit var binding: FragmentTeamHomeBinding
+    private val model: TeamViewModel by navGraphViewModels(R.id.main_navigation)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,7 @@ class TeamHomeFragment : Fragment() {
         // Set action bar title
 
         activity.setActionBarTitle("Team Home")
+        model.selectTeam(app.currentTeam)
     }
 
     fun navigateToRoster(){

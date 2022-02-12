@@ -39,7 +39,14 @@
     <fragment
         android:id="@+id/updateTeamFragment"
         android:name="org.mk.basketballmanager.fragments.main.UpdateTeamFragment"
-        android:label="UpdateTeamFragment" />
+        android:label="UpdateTeamFragment" >
+        <action
+            android:id="@+id/action_updateTeamFragment_to_teamHomeFragment"
+            app:destination="@id/teamHomeFragment" />
+        <action
+            android:id="@+id/action_updateTeamFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/updatePlayerFragment"
         android:name="org.mk.basketballmanager.fragments.main.UpdatePlayerFragment"
@@ -65,5 +72,14 @@
         <action
             android:id="@+id/action_playerInfoFragment_to_rosterFragment"
             app:destination="@id/rosterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="org.mk.basketballmanager.fragments.main.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_updateTeamFragment"
+            app:destination="@id/updateTeamFragment" />
     </fragment>
 </navigation>

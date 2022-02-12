@@ -28,6 +28,7 @@ class TeamStore(private val context: Context) : DataStore<TeamModel> {
     override fun findAll(): ArrayList<TeamModel> {
         return ArrayList(teams.values)
     }
+
     override fun create(obj: TeamModel){
 
     }
@@ -59,4 +60,14 @@ class TeamStore(private val context: Context) : DataStore<TeamModel> {
         val jsonString = read(context, TEAMS_JSON_FILE)
         teams = gsonBuilder.fromJson(jsonString, listType)
     }
+
+    override fun findOne(obj: TeamModel): TeamModel? {
+        return teams[obj.id]
+    }
+
+    override fun deleteAll() {
+        teams = HashMap()
+        serialize()
+    }
+
 }
