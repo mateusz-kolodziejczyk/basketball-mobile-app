@@ -1,6 +1,7 @@
 package org.mk.basketballmanager.models.datastores
 
 import android.content.Context
+import android.net.Uri
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -12,10 +13,12 @@ import java.lang.reflect.Type
 import java.util.*
 import kotlin.collections.HashMap
 
-private const val PLAYERS_JSON_FILE = "playlist.json"
+private const val PLAYERS_JSON_FILE = "players.json"
 
 class PlayerStore(private val context: Context) : DataStore<PlayerModel> {
-    private val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting().create()
+    private val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting()
+        .registerTypeAdapter(Uri::class.java, URIParser())
+        .create()
     private val listType: Type = object : TypeToken<HashMap<UUID , PlayerModel>>() {}.type
     private var players: HashMap<UUID, PlayerModel> = HashMap()
     

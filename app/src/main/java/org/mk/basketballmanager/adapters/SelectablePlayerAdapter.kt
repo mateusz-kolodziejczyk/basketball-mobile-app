@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.databinding.CardPlayerBinding
 import org.mk.basketballmanager.models.PlayerModel
@@ -44,7 +45,11 @@ class SelectablePlayerAdapter(private var players: ArrayList<PlayerModel>,
             RecyclerView.ViewHolder(binding.root) {
             fun bind(player: PlayerModel, isActivated: Boolean) {
                 binding.root.isActivated = isActivated
-                binding.name.text = player.name;
+                binding.name.text = player.name
+                Picasso.get()
+                    .load(player.image)
+                    .into(binding.image)
+                binding.position.text = player.preferredPosition.toString()
                 val context = binding.root.context
                 // Change color if its activated, or not.
                 if(isActivated){

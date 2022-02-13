@@ -45,8 +45,7 @@ class ListAllPlayersFragment : Fragment() {
 
         val app = activity.application as MainApp
         // Set action bar title
-
-        activity.setActionBarTitle("Roster")
+        activity.setActionBarTitle("All Players")
         binding.recyclerView.layoutManager = layoutManager
 
         binding.recyclerView.adapter = RosterAdapter(app.players.findAll(), { p -> })

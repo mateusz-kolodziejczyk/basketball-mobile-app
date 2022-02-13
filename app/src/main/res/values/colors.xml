@@ -9,8 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#a34c0a</color>
     <color name="primary_accent">#673108</color>
-    <color name="secondary">#ff00ff</color>
-    <color name="secondary_accent">#20f9fc</color>
-    <color name="delete">#11CCFF</color>
+    <color name="secondary">#20CBFF</color>
+    <color name="secondary_accent">#03617A</color>
+    <color name="delete">#03617A</color>
     <color name="selected_background">#20CBFF</color>
 </resources>

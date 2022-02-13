@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.databinding.CardPlayerBinding
 import org.mk.basketballmanager.models.PlayerModel
 import java.util.*
@@ -65,6 +66,9 @@ class RosterAdapter(private var players: List<PlayerModel>,
         fun bind(player: PlayerModel, onClickFunction: (PlayerModel) -> Unit) {
             binding.name.text = player.name
             binding.root.setOnClickListener { onClickFunction(player) }
+            Picasso.get()
+                .load(player.image)
+                .into(binding.image)
         }
     }
 

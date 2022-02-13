@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
@@ -47,6 +48,9 @@ class TeamPlayerInfoFragment : Fragment() {
         activity.setActionBarTitle("Player Info")
         player?.let{ playerModel ->
             binding.playerInfo.name.text = playerModel.name
+            Picasso.get()
+                .load(playerModel.image)
+                .into(binding.playerInfo.image)
             binding.teamPlayerInfoContent.buttonDelete.setOnClickListener { currentView ->
                 model.getSelectedTeam().value?.let { teamModel ->
                     app.teams.removePlayer(teamModel, playerModel)

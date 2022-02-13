@@ -16,7 +16,7 @@ import org.mk.basketballmanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var mainBinding : ActivityMainBinding
+    lateinit var mainBinding : ActivityMainBinding
     lateinit var navController: NavController
     private lateinit var appBarConfiguration : AppBarConfiguration
 
@@ -40,7 +40,11 @@ class MainActivity : AppCompatActivity() {
         //navView.setupWithNavController(navController)
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.rosterFragment, R.id.teamHomeFragment), drawerLayout
+            setOf(R.id.rosterFragment,
+                R.id.teamHomeFragment,
+                R.id.updateTeamFragment,
+                R.id.listAllPlayersFragment,
+            R.id.addNewPlayerFragment), drawerLayout
         )
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
