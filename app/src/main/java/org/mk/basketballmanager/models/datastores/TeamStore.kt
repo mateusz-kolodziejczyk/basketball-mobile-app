@@ -78,6 +78,11 @@ class TeamStore(private val context: Context) : DataStore<TeamModel> {
         // Will find only one team with the given username
         return teams.values.findLast { team -> team.owner == username }
     }
+    fun deletePlayerFromRosters(player: PlayerModel){
+        for(team in teams.values){
+            team.roster.remove(player.id)
+        }
+    }
 
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(teams, listType)
