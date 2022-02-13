@@ -28,4 +28,5 @@
     <string name="error_player_does_not_exist">Player does not exist</string>
     <string name="pickImage">Pick Image</string>
     <string name="position_textview">Position</string>
+    <string name="hint_userName">Username</string>
 </resources>

@@ -13,6 +13,21 @@
         android:textAlignment="center"
         android:textSize="30sp"
         android:layout_marginTop="100dp"/>
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="8dp"
+        android:autofillHints=""
+        android:hint="@string/hint_userName"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:imeOptions="actionDone"
+        />
     <Button
         android:id="@+id/signin_button"
         android:layout_width="match_parent"

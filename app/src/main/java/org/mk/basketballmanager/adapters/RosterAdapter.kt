@@ -65,6 +65,7 @@ class RosterAdapter(private var players: List<PlayerModel>,
         RecyclerView.ViewHolder(binding.root) {
         fun bind(player: PlayerModel, onClickFunction: (PlayerModel) -> Unit) {
             binding.name.text = player.name
+            binding.position.text = player.preferredPosition.toString()
             binding.root.setOnClickListener { onClickFunction(player) }
             Picasso.get()
                 .load(player.image)

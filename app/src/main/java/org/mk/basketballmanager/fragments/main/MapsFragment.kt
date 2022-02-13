@@ -25,21 +25,11 @@ class MapsFragment : Fragment() {
     private val model: LocationViewModel by navGraphViewModels(R.id.main_navigation)
 
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
         var position = LatLng(25.0, 151.0)
         var zoom = googleMap.cameraPosition.zoom
         model.getLocation().observe(viewLifecycleOwner, { loc ->
             position = LatLng(loc.lat, loc.lng)
             zoom = loc.zoom
-
         })
         val options = MarkerOptions()
             .title("Team Location")
@@ -66,6 +56,13 @@ class MapsFragment : Fragment() {
             override fun onMarkerDragStart(marker: Marker) {
             }
         })
+
+        googleMap.setOnCameraIdleListener {
+            val location = model.getLocation().value
+            location?.let{
+                it.zoom = googleMap.cameraPosition.zoom
+            }
+        }
     }
 
 
