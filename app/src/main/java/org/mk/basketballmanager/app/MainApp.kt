@@ -29,7 +29,6 @@ class MainApp : Application() {
 
         // Add sample data to the app.
         if(addSampleData){
-            players.deleteAll()
             addSampleData(players)
         }
     }
