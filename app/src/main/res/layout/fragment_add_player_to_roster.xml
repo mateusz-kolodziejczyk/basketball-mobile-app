@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include
+        android:id="@+id/list"
+        layout="@layout/fragment_list"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:stateListAnimator="@null"
+        android:text="@string/add"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/list"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

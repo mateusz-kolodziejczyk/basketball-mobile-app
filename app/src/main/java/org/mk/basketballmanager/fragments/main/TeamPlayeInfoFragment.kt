@@ -6,19 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navGraphViewModels
+import com.google.android.material.snackbar.Snackbar
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentPlayerInfoBinding
+import org.mk.basketballmanager.databinding.FragmentTeamPlayerInfoBinding
 import org.mk.basketballmanager.models.PlayerModel
+import org.mk.basketballmanager.viewmodels.TeamViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PLAYER = "player"
-class PlayerInfoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+class TeamPlayerInfoFragment : Fragment() {
+    private val model: TeamViewModel by navGraphViewModels(R.id.main_navigation)
     private var player: PlayerModel? = null
-    private lateinit var binding: FragmentPlayerInfoBinding
+    private lateinit var binding: FragmentTeamPlayerInfoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -31,7 +33,7 @@ class PlayerInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentPlayerInfoBinding.inflate(inflater, container, false)
+        binding = FragmentTeamPlayerInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,12 +46,17 @@ class PlayerInfoFragment : Fragment() {
 
         activity.setActionBarTitle("Player Info")
         player?.let{ playerModel ->
-            binding.name.text = playerModel.name
-            binding.buttonDelete.setOnClickListener {
-                app.players.delete(playerModel)
-                navigateToRoster()
+            binding.playerInfo.name.text = playerModel.name
+            binding.teamPlayerInfoContent.buttonDelete.setOnClickListener { currentView ->
+                model.getSelectedTeam().value?.let { teamModel ->
+                    app.teams.removePlayer(teamModel, playerModel)
+                    navigateToRoster()
+                } ?: run{
+                    Snackbar.make(currentView, R.string.error_player_does_not_exist, Snackbar.LENGTH_LONG)
+                        .show()
+                }
             }
-            binding.buttonUpdate.setOnClickListener {
+            binding.playerInfo.buttonUpdate.setOnClickListener {
                 navigateToUpdatePlayer(playerModel)
             }
         }
@@ -57,17 +64,17 @@ class PlayerInfoFragment : Fragment() {
 
     }
     fun navigateToUpdatePlayer(player: PlayerModel){
-            val action = PlayerInfoFragmentDirections.actionPlayerInfoFragmentToUpdatePlayerFragment(player)
+            val action = TeamPlayerInfoFragmentDirections.actionPlayerInfoFragmentToUpdatePlayerFragment(player)
             NavHostFragment.findNavController(this).navigate(action)
     }
     fun navigateToRoster(){
-        val action = PlayerInfoFragmentDirections.actionPlayerInfoFragmentToRosterFragment()
+        val action = TeamPlayerInfoFragmentDirections.actionPlayerInfoFragmentToRosterFragment()
         NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {
         @JvmStatic
         fun newInstance(player: PlayerModel) =
-            PlayerInfoFragment().apply {
+            TeamPlayerInfoFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_PLAYER, player)
                 }

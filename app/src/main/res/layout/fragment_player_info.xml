@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.mk.basketballmanager.fragments.main.PlayerInfoFragment">
+    tools:context="org.mk.basketballmanager.fragments.main.TeamPlayerInfoFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,17 +48,7 @@
                 android:stateListAnimator="@null"
                 android:text="@string/update"
                 android:textSize="16sp" />
-            <Button
-                android:id="@+id/buttonDelete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:stateListAnimator="@null"
-                android:backgroundTint="@color/delete"
-                android:text="@string/delete"
-                android:textSize="16sp" />
+
 
         </LinearLayout>
     </ScrollView>

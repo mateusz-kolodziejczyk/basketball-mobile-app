@@ -22,4 +22,8 @@
     <string name="hint_teamName">Team Name</string>
     <string name="set_location">Set Location</string>
     <string name="updateTeam">Update Team Info</string>
+    <string name="listAllPlayers">Full Player List</string>
+    <string name="addNewPlayer">Add New Player</string>
+    <string name="error_no_player_selected">Please select a player</string>
+    <string name="error_player_does_not_exist">Player does not exist</string>
 </resources>

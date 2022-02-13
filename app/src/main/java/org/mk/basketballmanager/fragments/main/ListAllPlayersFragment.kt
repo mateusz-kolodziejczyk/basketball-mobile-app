@@ -19,8 +19,7 @@ import org.mk.basketballmanager.helpers.playerIDsToModels
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.viewmodels.TeamViewModel
 
-class RosterFragment : Fragment() {
-    private val model: TeamViewModel by navGraphViewModels(R.id.main_navigation)
+class ListAllPlayersFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +48,8 @@ class RosterFragment : Fragment() {
 
         activity.setActionBarTitle("Roster")
         binding.recyclerView.layoutManager = layoutManager
-        model.getSelectedTeam().observe(viewLifecycleOwner, { selectedTeam ->
-            // This converts the id values stored in team roster into actual player models
-            val players = playerIDsToModels(app.teams.getRoster(selectedTeam).keys.toList(), app.players.findAll())
 
-            binding.recyclerView.adapter = RosterAdapter(players, navigateToPlayerInfo)
-        })
+        binding.recyclerView.adapter = RosterAdapter(app.players.findAll(), { p -> })
     }
     // Menu
     // Taken from https://stackoverflow.com/a/52018980
@@ -88,21 +83,12 @@ class RosterFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_add -> {
-                navigateToAddPlayer()
+               // navigateToAddPlayer()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private val navigateToPlayerInfo = { player: PlayerModel ->
-        val action = RosterFragmentDirections.actionRosterFragmentToPlayerInfoFragment(player)
-        NavHostFragment.findNavController(this).navigate(action)
-    }
-
-    private fun navigateToAddPlayer(){
-        val action = RosterFragmentDirections.actionRosterFragmentToAddPlayerToRosterFragment()
-        NavHostFragment.findNavController(this).navigate(action)
-    }
 
     companion object {
         @JvmStatic

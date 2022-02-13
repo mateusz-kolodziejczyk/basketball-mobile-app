@@ -1,9 +1,11 @@
 package org.mk.basketballmanager.app
 
 import android.app.Application
+import org.mk.basketballmanager.enums.Position
 import org.mk.basketballmanager.models.datastores.TeamStore
 import org.mk.basketballmanager.helpers.addSampleData
 import org.mk.basketballmanager.models.Location
+import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.models.TeamModel
 import org.mk.basketballmanager.models.datastores.PlayerStore
 import timber.log.Timber
@@ -33,6 +35,9 @@ class MainApp : Application() {
         if(addSampleData){
             players.deleteAll()
             addSampleData(players)
+            val samplePlayer = PlayerModel(UUID.randomUUID(), "Lebron James", Position.SmallForward)
+            players.add(samplePlayer)
+            teams.addUpdatePlayer(currentTeam, samplePlayer, samplePlayer.preferredPosition)
         }
     }
 }

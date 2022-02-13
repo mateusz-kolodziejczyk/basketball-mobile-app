@@ -14,7 +14,7 @@ import org.mk.basketballmanager.databinding.FragmentAddUpdatePlayerBinding
 import org.mk.basketballmanager.models.PlayerModel
 import java.util.*
 
-class AddPlayerFragment : Fragment() {
+class AddNewPlayerFragment : Fragment() {
     lateinit var binding: FragmentAddUpdatePlayerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,22 +41,22 @@ class AddPlayerFragment : Fragment() {
 
         binding.btnAdd.text = resources.getString(R.string.add)
         binding.btnAdd.setOnClickListener { currentView ->
-                val newPlayer = PlayerModel(
-                    id = UUID.randomUUID(),
-                    name = binding.name.text.toString()
-                )
-                if(newPlayer.name.isEmpty()){
-                    Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
-                        .show()
-                }
-                else{
-                    app.players.add(newPlayer)
-                    navigateToRoster()
-                }
+            val newPlayer = PlayerModel(
+                id = UUID.randomUUID(),
+                name = binding.name.text.toString()
+            )
+            if(newPlayer.name.isEmpty()){
+                Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
+                    .show()
             }
+            else{
+                app.players.add(newPlayer)
+                navigateToPlayerList()
+            }
+        }
     }
-    private fun navigateToRoster(){
-        val action = AddPlayerFragmentDirections.actionAddPlayerFragmentToRosterFragment()
+    private fun navigateToPlayerList(){
+        val action = AddNewPlayerFragmentDirections.actionAddNewPlayerFragmentToListAllPlayersFragment()
         NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {
