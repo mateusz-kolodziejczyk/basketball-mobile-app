@@ -18,7 +18,7 @@ class MainApp : Application() {
     // This is only for testing, later on a team will be selected using the current user instead.
     lateinit var currentTeam: TeamModel
     override fun onCreate() {
-        val addSampleData = true
+        val addSampleData = false
 
         super.onCreate()
         Timber.plant(Timber.DebugTree())
@@ -26,18 +26,11 @@ class MainApp : Application() {
         players = PlayerStore(this)
         teams = TeamStore(this)
 
-        teams.deleteAll()
-        val teamToAdd = TeamModel(UUID.randomUUID(), "Waterford Vikings", Location(52.25640225072533, -7.122288253745915))
-        teams.add(teamToAdd)
-        // App gets a new spotify access token each time it launches
-        currentTeam = teamToAdd
+
         // Add sample data to the app.
         if(addSampleData){
             players.deleteAll()
             addSampleData(players)
-            val samplePlayer = PlayerModel(UUID.randomUUID(), "Lebron James", Position.SmallForward)
-            players.add(samplePlayer)
-            teams.addUpdatePlayer(currentTeam, samplePlayer, samplePlayer.preferredPosition)
         }
     }
 }

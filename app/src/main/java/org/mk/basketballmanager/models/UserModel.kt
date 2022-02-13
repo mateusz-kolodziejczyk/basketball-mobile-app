@@ -2,4 +2,4 @@ package org.mk.basketballmanager.models
 
 import java.util.*
 
-data class UserModel(val id: UUID)
+data class UserModel(val id: UUID, var username: String)

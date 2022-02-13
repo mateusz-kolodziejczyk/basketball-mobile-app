@@ -48,7 +48,7 @@ class ListAllPlayersFragment : Fragment() {
         activity.setActionBarTitle("All Players")
         binding.recyclerView.layoutManager = layoutManager
 
-        binding.recyclerView.adapter = RosterAdapter(app.players.findAll(), { p -> })
+        binding.recyclerView.adapter = RosterAdapter(app.players.findAll(), navigateToPlayerInfo)
     }
     // Menu
     // Taken from https://stackoverflow.com/a/52018980
@@ -79,10 +79,20 @@ class ListAllPlayersFragment : Fragment() {
         searchView.setOnClickListener { view -> }
     }
 
+    private val navigateToPlayerInfo = { player: PlayerModel ->
+        val action = ListAllPlayersFragmentDirections.actionListAllPlayersFragmentToGeneralPlayerInfo(player)
+        NavHostFragment.findNavController(this).navigate(action)
+    }
+
+    private fun navigateToAddPlayer(){
+        val action = ListAllPlayersFragmentDirections.actionListAllPlayersFragmentToAddNewPlayer()
+        NavHostFragment.findNavController(this).navigate(action)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_add -> {
-               // navigateToAddPlayer()
+               navigateToAddPlayer()
             }
         }
         return super.onOptionsItemSelected(item)

@@ -88,7 +88,7 @@ class UpdatePlayerFragment : Fragment() {
         }
     }
     private fun navigateToRoster(){
-        val action = UpdatePlayerFragmentDirections.actionUpdatePlayerFragmentToRosterFragment()
+        val action = UpdatePlayerFragmentDirections.actionUpdatePlayerFragmentToListAllPlayersFragment2()
         NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {

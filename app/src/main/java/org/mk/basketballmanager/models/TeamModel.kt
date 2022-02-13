@@ -8,4 +8,4 @@ import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 @Parcelize
-data class TeamModel(val id: UUID = UUID.randomUUID(), var name: String = "", var location: Location = Location(), var roster: HashMap<UUID, Position> = HashMap()):Parcelable
+data class TeamModel(val id: UUID = UUID.randomUUID(), var name: String = "", var location: Location = Location(), var roster: HashMap<UUID, Position> = HashMap(), var owner: String):Parcelable

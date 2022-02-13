@@ -58,6 +58,7 @@ class TeamStore(private val context: Context) : DataStore<TeamModel> {
         team?.let {
             it.roster[player.id] = position
         }
+        serialize()
     }
 
     fun removePlayer(obj: TeamModel, player: PlayerModel){
@@ -65,12 +66,17 @@ class TeamStore(private val context: Context) : DataStore<TeamModel> {
         team?.let {
             it.roster.remove(player.id)
         }
+        serialize()
     }
     fun getRoster(obj: TeamModel): HashMap<UUID, Position>{
         teams[obj.id]?.let {
             return it.roster
         }
         return HashMap()
+    }
+    fun getTeamByUsername(username: String): TeamModel?{
+        // Will find only one team with the given username
+        return teams.values.findLast { team -> team.owner == username }
     }
 
     private fun serialize() {

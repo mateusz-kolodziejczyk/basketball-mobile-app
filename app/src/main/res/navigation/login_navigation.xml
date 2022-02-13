@@ -17,5 +17,9 @@
         android:id="@+id/mainActivity"
         android:name="org.mk.basketballmanager.activities.MainActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_main" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </activity>
 </navigation>

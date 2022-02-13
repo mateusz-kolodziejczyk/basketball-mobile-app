@@ -8,17 +8,21 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.github.ajalt.timberkt.Timber
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.databinding.ActivityMainBinding
+import timber.log.Timber.i
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     lateinit var mainBinding : ActivityMainBinding
     lateinit var navController: NavController
     private lateinit var appBarConfiguration : AppBarConfiguration
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +37,18 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_nav_fragment) as NavHostFragment
+
+
         navController = navHostFragment.navController
+        navController.setGraph(R.navigation.main_navigation, intent.extras)
+
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+
+//        intent.extras?.let {
+//            val username = MainActivityArgs.fromBundle(it).username
+//            i("Stuff")
+//        }
+
 
         val navView = mainBinding.navView
         //navView.setupWithNavController(navController)

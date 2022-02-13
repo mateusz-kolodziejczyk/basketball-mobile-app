@@ -65,6 +65,7 @@ class UpdateTeamFragment : Fragment() {
                     name = binding.name.text.toString(),
                     roster = selectedTeam.roster,
                     location = selectedTeam.location,
+                    owner = selectedTeam.owner
                 )
                 // If the location view model value is not null, set the location to that.
                 locationViewModel.getLocation().value?.let{
@@ -77,7 +78,7 @@ class UpdateTeamFragment : Fragment() {
                 }
                 else{
                     app.teams.update(updatedTeam)
-                    app.currentTeam = updatedTeam
+                    teamViewModel.selectTeam(updatedTeam)
                     navigateToHome()
                 }
             }
