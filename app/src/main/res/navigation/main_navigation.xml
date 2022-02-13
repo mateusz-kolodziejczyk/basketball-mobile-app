@@ -58,7 +58,7 @@
             android:name="player"
             app:argType="org.mk.basketballmanager.models.PlayerModel" />
         <action
-            android:id="@+id/action_updatePlayerFragment_to_listAllPlayersFragment2"
+            android:id="@+id/action_updatePlayerFragment_to_listAllPlayersFragment"
             app:destination="@id/listAllPlayersFragment" />
     </fragment>
     <fragment
@@ -68,7 +68,9 @@
         tools:layout="@layout/fragment_player_info">
         <action
             android:id="@+id/action_playerInfoFragment_to_updatePlayerFragment"
-            app:destination="@id/updatePlayerFragment" />
+            app:destination="@id/updatePlayerFragment"
+            app:popUpTo="@id/teamHomeFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="player"
             app:argType="org.mk.basketballmanager.models.PlayerModel" />
@@ -115,7 +117,9 @@
             app:argType="org.mk.basketballmanager.models.PlayerModel" />
         <action
             android:id="@+id/action_generalPlayerInfo_to_updatePlayerFragment"
-            app:destination="@id/updatePlayerFragment" />
+            app:destination="@id/updatePlayerFragment"
+            app:popUpTo="@id/listAllPlayersFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_generalPlayerInfo_to_listAllPlayersFragment"
             app:destination="@id/listAllPlayersFragment" />

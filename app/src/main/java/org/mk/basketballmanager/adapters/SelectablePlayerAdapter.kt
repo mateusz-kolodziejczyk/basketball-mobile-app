@@ -2,6 +2,7 @@ package org.mk.basketballmanager.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso

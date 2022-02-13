@@ -57,8 +57,7 @@ class MainActivity : AppCompatActivity() {
             setOf(R.id.rosterFragment,
                 R.id.teamHomeFragment,
                 R.id.updateTeamFragment,
-                R.id.listAllPlayersFragment,
-            R.id.addNewPlayerFragment), drawerLayout
+                R.id.listAllPlayersFragment,), drawerLayout
         )
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)

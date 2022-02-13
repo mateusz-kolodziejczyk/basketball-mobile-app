@@ -21,10 +21,6 @@
             android:id="@+id/listAllPlayersFragment"
             android:icon="@drawable/ic_baseline_list_24"
             android:title="@string/listAllPlayers" />
-        <item
-            android:id="@+id/addNewPlayerFragment"
-            android:icon="@drawable/ic_baseline_person_add_24"
-            android:title="@string/addNewPlayer" />
     </group>
 
     <item android:title="@string/group_communicate">

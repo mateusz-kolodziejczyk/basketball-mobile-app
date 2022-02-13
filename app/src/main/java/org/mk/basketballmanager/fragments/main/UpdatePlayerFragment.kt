@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
@@ -17,6 +20,7 @@ import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentAddUpdatePlayerBinding
+import org.mk.basketballmanager.enums.Position
 import org.mk.basketballmanager.helpers.showImagePicker
 import org.mk.basketballmanager.models.PlayerModel
 import timber.log.Timber
@@ -32,6 +36,7 @@ class UpdatePlayerFragment : Fragment() {
 
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private var imageURI = Uri.EMPTY
+    var selectedPosition: Position = Position.None
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +64,31 @@ class UpdatePlayerFragment : Fragment() {
 
         activity.setActionBarTitle("Update Player")
         binding.btnAdd.text = resources.getString(R.string.update)
-        player?.let{
-            imageURI = it.image
 
+        val positions = Position.values()
+        // Code from https://stackoverflow.com/a/21169383
+        val positionAdapter: ArrayAdapter<Position>? =
+            this.context?.let { ArrayAdapter<Position>(it, R.layout.position_spinner_text, positions) }
+        val userSpinner = binding.positionSpinner
+
+        userSpinner.adapter = positionAdapter
+        userSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                selectedPosition = parent.selectedItem as Position
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        player?.let{
+            userSpinner.setSelection(positions.indexOf(it.preferredPosition))
+            imageURI = it.image
+            selectedPosition = it.preferredPosition
             Picasso.get()
                 .load(imageURI)
                 .into(binding.image)
@@ -71,7 +98,8 @@ class UpdatePlayerFragment : Fragment() {
                 val updatedPlayer = PlayerModel(
                     id = it.id,
                     name = binding.name.text.toString(),
-                    image = imageURI
+                    image = imageURI,
+                    preferredPosition = selectedPosition
                 )
                 if(updatedPlayer.name.isEmpty()){
                     Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
@@ -88,7 +116,7 @@ class UpdatePlayerFragment : Fragment() {
         }
     }
     private fun navigateToRoster(){
-        val action = UpdatePlayerFragmentDirections.actionUpdatePlayerFragmentToListAllPlayersFragment2()
+        val action = UpdatePlayerFragmentDirections.actionUpdatePlayerFragmentToListAllPlayersFragment()
         NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {
@@ -108,7 +136,7 @@ class UpdatePlayerFragment : Fragment() {
                     AppCompatActivity.RESULT_OK -> {
                         if (result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
-                            imageURI = result.data!!.data!!
+                            imageURI = result.data!!.data!!.path?.toUri()
                             Picasso.get()
                                 .load(imageURI)
                                 .into(binding.image)
