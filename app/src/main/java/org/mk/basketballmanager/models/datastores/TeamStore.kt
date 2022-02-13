@@ -82,6 +82,7 @@ class TeamStore(private val context: Context) : DataStore<TeamModel> {
         for(team in teams.values){
             team.roster.remove(player.id)
         }
+        serialize()
     }
 
     private fun serialize() {
