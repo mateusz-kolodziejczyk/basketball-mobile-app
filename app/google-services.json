@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "643687772788",
+    "firebase_url": "https://basketball-team-manager-e7331-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "basketball-team-manager-e7331",
+    "storage_bucket": "basketball-team-manager-e7331.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643687772788:android:57d85639ff8872b8139721",
+        "android_client_info": {
+          "package_name": "org.mk.basketballmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643687772788-ocg7hlspvs9pvq7qfv70jnqpo4ljpmjk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.mk.basketballmanager",
+            "certificate_hash": "2fd0fe35fac2f4520fb0423cbe5e761c859ef43e"
+          }
+        },
+        {
+          "client_id": "643687772788-gm3l26phurigppj67t45ei5ubk8a23s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNbV3S9JMmfDj5NEjr8I9bBYQLIeBPhlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643687772788-gm3l26phurigppj67t45ei5ubk8a23s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
