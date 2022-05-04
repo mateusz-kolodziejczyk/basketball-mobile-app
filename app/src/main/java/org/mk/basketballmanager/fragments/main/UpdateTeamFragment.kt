@@ -1,19 +1,13 @@
 package org.mk.basketballmanager.fragments.main
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
@@ -22,7 +16,6 @@ import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.models.TeamModel
 import org.mk.basketballmanager.viewmodels.LocationViewModel
 import org.mk.basketballmanager.viewmodels.TeamViewModel
-import timber.log.Timber
 
 class UpdateTeamFragment : Fragment() {
     private val teamViewModel: TeamViewModel by navGraphViewModels(R.id.main_navigation)

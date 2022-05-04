@@ -86,9 +86,9 @@ class UpdatePlayerFragment : Fragment() {
         }
 
         player?.let{
-            userSpinner.setSelection(positions.indexOf(it.preferredPosition))
+            userSpinner.setSelection(positions.indexOf(it.position))
             imageURI = it.image
-            selectedPosition = it.preferredPosition
+            selectedPosition = it.position
             Picasso.get()
                 .load(imageURI)
                 .into(binding.image)
@@ -99,7 +99,7 @@ class UpdatePlayerFragment : Fragment() {
                     id = it.id,
                     name = binding.name.text.toString(),
                     image = imageURI,
-                    preferredPosition = selectedPosition
+                    position = selectedPosition
                 )
                 if(updatedPlayer.name.isEmpty()){
                     Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)

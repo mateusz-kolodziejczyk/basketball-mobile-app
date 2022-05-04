@@ -21,6 +21,14 @@ enum class Position {
             return "Power Forward"
         }
     },
-    Center,
-    None,
+    Center{
+        override fun toString(): String {
+            return "Center"
+        }
+    },
+    None{
+        override fun toString(): String {
+            return "None"
+        }
+    },
 }

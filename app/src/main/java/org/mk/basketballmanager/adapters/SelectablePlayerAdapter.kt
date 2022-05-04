@@ -2,7 +2,6 @@ package org.mk.basketballmanager.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.webkit.URLUtil
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -12,7 +11,6 @@ import org.mk.basketballmanager.models.PlayerModel
 import java.lang.IndexOutOfBoundsException
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.LinkedHashSet
 
 class SelectablePlayerAdapter(private var players: ArrayList<PlayerModel>,
 ): RecyclerView.Adapter<SelectablePlayerAdapter.MainHolder>() {
@@ -50,7 +48,7 @@ class SelectablePlayerAdapter(private var players: ArrayList<PlayerModel>,
                 Picasso.get()
                     .load(player.image)
                     .into(binding.image)
-                binding.position.text = player.preferredPosition.toString()
+                binding.position.text = player.position.toString()
                 val context = binding.root.context
                 // Change color if its activated, or not.
                 if(isActivated){

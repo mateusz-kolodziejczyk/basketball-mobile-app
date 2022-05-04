@@ -22,8 +22,6 @@ import timber.log.Timber
 import java.util.*
 import android.widget.AdapterView
 
-import android.widget.Spinner
-
 import android.widget.ArrayAdapter
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.enums.Position
@@ -83,7 +81,7 @@ class AddNewPlayerFragment : Fragment() {
                 id = UUID.randomUUID(),
                 name = binding.name.text.toString(),
                 image = imageURI,
-                preferredPosition = selectedPosition
+                position = selectedPosition
             )
             if(newPlayer.name.isEmpty()){
                 Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)

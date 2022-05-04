@@ -1,16 +1,13 @@
 package org.mk.basketballmanager.adapters
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.databinding.CardPlayerBinding
 import org.mk.basketballmanager.models.PlayerModel
-import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -68,7 +65,7 @@ class RosterAdapter(private var players: List<PlayerModel>,
         RecyclerView.ViewHolder(binding.root) {
         fun bind(player: PlayerModel, onClickFunction: (PlayerModel) -> Unit) {
             binding.name.text = player.name
-            binding.position.text = player.preferredPosition.toString()
+            binding.position.text = player.position.toString()
             binding.root.setOnClickListener { onClickFunction(player) }
             Picasso.get()
                 .load(player.image)

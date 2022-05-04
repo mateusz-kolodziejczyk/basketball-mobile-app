@@ -1,7 +1,6 @@
 package org.mk.basketballmanager.models.datastores
 
 import android.content.Context
-import android.icu.text.Transliterator
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
