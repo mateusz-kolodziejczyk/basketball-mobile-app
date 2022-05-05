@@ -26,7 +26,8 @@ class SelectablePlayerAdapter(private var players: ArrayList<PlayerModel>,
 
         fun getSelectedPlayer() : PlayerModel?{
             return try{
-                displayedPlayers.filter { track -> track.id == selectedTrackID }[0]
+               // displayedPlayers.filter { track -> track.id == selectedTrackID }[0]
+                PlayerModel()
             } catch(e: IndexOutOfBoundsException){
                 null
             }
@@ -38,7 +39,7 @@ class SelectablePlayerAdapter(private var players: ArrayList<PlayerModel>,
 
         override fun onBindViewHolder(holder: MainHolder, position: Int) {
             val player = displayedPlayers[holder.adapterPosition]
-            holder.bind(player, player.id == selectedTrackID)
+            //holder.bind(player, player.id == selectedTrackID)
         }
         inner class MainHolder(private val binding : CardPlayerBinding) :
             RecyclerView.ViewHolder(binding.root) {
@@ -58,7 +59,7 @@ class SelectablePlayerAdapter(private var players: ArrayList<PlayerModel>,
                 }
 
                 binding.root.setOnClickListener {
-                    selectedTrackID = player.id
+                    //selectedTrackID = player.id
                     notifyDataSetChanged()
                 }
             }

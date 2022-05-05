@@ -17,89 +17,31 @@ import kotlin.collections.HashMap
 private const val TEAMS_JSON_FILE = "teams.json"
 
 class TeamStore(private val context: Context) : DataStore<TeamModel> {
-    private val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting().create()
-    private val listType: Type = object : TypeToken<HashMap<UUID , TeamModel>>() {}.type
-    private var teams: HashMap<UUID, TeamModel> = HashMap()
-    
-    init {
-        if (exists(context, TEAMS_JSON_FILE)) {
-            deserialize()
-        }
+    override fun findAll(): List<TeamModel> {
+        TODO("Not yet implemented")
     }
 
-    override fun findAll(): ArrayList<TeamModel> {
-        return ArrayList(teams.values)
+    override fun create(obj: TeamModel) {
+        TODO("Not yet implemented")
     }
 
-    override fun create(obj: TeamModel){
+    override fun update(obj: TeamModel) {
+        TODO("Not yet implemented")
+    }
 
-    }
-    override fun update(obj: TeamModel){
-        val playlistToUpdate = teams[obj.id]
-        // If it finds the correct track by id, update it.
-        playlistToUpdate?.let{
-            teams[obj.id] = obj
-            serialize()
-        }
-    }
-    override fun add(obj: TeamModel){
-        teams[obj.id] = obj
-        serialize()
+    override fun add(obj: TeamModel) {
+        TODO("Not yet implemented")
     }
 
     override fun delete(obj: TeamModel) {
-        teams.remove(obj.id)
-        serialize()
-    }
-
-    fun addUpdatePlayer(obj: TeamModel, player: PlayerModel, position: Position){
-        val team = teams[obj.id]
-        team?.let {
-            it.roster[player.id] = position
-        }
-        serialize()
-    }
-
-    fun removePlayer(obj: TeamModel, player: PlayerModel){
-        val team = teams[obj.id]
-        team?.let {
-            it.roster.remove(player.id)
-        }
-        serialize()
-    }
-    fun getRoster(obj: TeamModel): HashMap<UUID, Position>{
-        teams[obj.id]?.let {
-            return it.roster
-        }
-        return HashMap()
-    }
-    fun getTeamByUsername(username: String): TeamModel?{
-        // Will find only one team with the given username
-        return teams.values.findLast { team -> team.owner == username }
-    }
-    fun deletePlayerFromRosters(player: PlayerModel){
-        for(team in teams.values){
-            team.roster.remove(player.id)
-        }
-        serialize()
-    }
-
-    private fun serialize() {
-        val jsonString = gsonBuilder.toJson(teams, listType)
-        write(context, TEAMS_JSON_FILE, jsonString)
-    }
-    private fun deserialize() {
-        val jsonString = read(context, TEAMS_JSON_FILE)
-        teams = gsonBuilder.fromJson(jsonString, listType)
+        TODO("Not yet implemented")
     }
 
     override fun findOne(obj: TeamModel): TeamModel? {
-        return teams[obj.id]
+        TODO("Not yet implemented")
     }
 
     override fun deleteAll() {
-        teams = HashMap()
-        serialize()
+        TODO("Not yet implemented")
     }
-
 }

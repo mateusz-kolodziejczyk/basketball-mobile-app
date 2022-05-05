@@ -13,4 +13,7 @@
     <color name="secondary_accent">#03617A</color>
     <color name="delete">#03617A</color>
     <color name="selected_background">#20CBFF</color>
+    <color name="grey_100">#2196F3</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_500">#9E9E9E</color>
 </resources>

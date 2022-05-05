@@ -16,7 +16,6 @@ import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentAddPlayerToRosterBinding
 import org.mk.basketballmanager.databinding.FragmentAddUpdatePlayerBinding
 import org.mk.basketballmanager.enums.Position
-import org.mk.basketballmanager.helpers.getPlayersWithoutTeam
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.viewmodels.TeamViewModel
 import java.util.*
@@ -49,10 +48,7 @@ class AddPlayerToRosterFragment : Fragment() {
         binding.list.recyclerView.layoutManager = layoutManager
         val adapter = SelectablePlayerAdapter(
             ArrayList(
-                getPlayersWithoutTeam(
-                    app.teams.findAll(),
-                    app.players.findAll()
-                )
+
             )
         )
         binding.list.recyclerView.adapter = adapter
@@ -64,7 +60,7 @@ class AddPlayerToRosterFragment : Fragment() {
             binding.btnAdd.setOnClickListener { currentView ->
                 val playerToAdd = adapter.getSelectedPlayer()
                 playerToAdd?.let { track ->
-                    app.teams.addUpdatePlayer(teamModel, playerToAdd, Position.None)
+                    //app.teams.addUpdatePlayer(teamModel, playerToAdd, Position.None)
                     navigateToRoster()
                 } ?: run {
                     Snackbar.make(currentView, R.string.error_no_player_selected, Snackbar.LENGTH_LONG)
@@ -75,9 +71,6 @@ class AddPlayerToRosterFragment : Fragment() {
     }
 
     private fun navigateToRoster() {
-        val action =
-            AddPlayerToRosterFragmentDirections.actionAddPlayerToRosterFragmentToRosterFragment()
-        NavHostFragment.findNavController(this).navigate(action)
     }
 
     companion object {

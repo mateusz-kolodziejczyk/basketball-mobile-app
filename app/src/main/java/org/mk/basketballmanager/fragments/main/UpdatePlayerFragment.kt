@@ -85,39 +85,37 @@ class UpdatePlayerFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        player?.let{
-            userSpinner.setSelection(positions.indexOf(it.position))
-            imageURI = it.image
-            selectedPosition = it.position
-            Picasso.get()
-                .load(imageURI)
-                .into(binding.image)
-
-            binding.name.setText(it.name)
-            binding.btnAdd.setOnClickListener { currentView ->
-                val updatedPlayer = PlayerModel(
-                    id = it.id,
-                    name = binding.name.text.toString(),
-                    image = imageURI,
-                    position = selectedPosition
-                )
-                if(updatedPlayer.name.isEmpty()){
-                    Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
-                        .show()
-                }
-                else{
-                    app.players.update(updatedPlayer)
-                    navigateToRoster()
-                }
-            }
-            binding.buttonPickImage.setOnClickListener { currentView ->
-                showImagePicker(imageIntentLauncher)
-            }
-        }
+//        player?.let{
+//            userSpinner.setSelection(positions.indexOf(it.position))
+//            imageURI = it.image
+//            selectedPosition = it.position
+//            Picasso.get()
+//                .load(imageURI)
+//                .into(binding.image)
+//
+//            binding.name.setText(it.name)
+//            binding.btnAdd.setOnClickListener { currentView ->
+//                val updatedPlayer = PlayerModel(
+//                    id = it.id,
+//                    name = binding.name.text.toString(),
+//                    image = imageURI,
+//                    position = selectedPosition
+//                )
+//                if(updatedPlayer.name.isEmpty()){
+//                    Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
+//                        .show()
+//                }
+//                else{
+//                    app.players.update(updatedPlayer)
+//                    navigateToRoster()
+//                }
+//            }
+//            binding.buttonPickImage.setOnClickListener { currentView ->
+//                showImagePicker(imageIntentLauncher)
+//            }
+//        }
     }
     private fun navigateToRoster(){
-        val action = UpdatePlayerFragmentDirections.actionUpdatePlayerFragmentToListAllPlayersFragment()
-        NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {
         @JvmStatic

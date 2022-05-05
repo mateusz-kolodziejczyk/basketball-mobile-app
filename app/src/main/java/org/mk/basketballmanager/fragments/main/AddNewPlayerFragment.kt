@@ -76,29 +76,27 @@ class AddNewPlayerFragment : Fragment() {
         }
 
         binding.btnAdd.text = resources.getString(R.string.add)
-        binding.btnAdd.setOnClickListener { currentView ->
-            val newPlayer = PlayerModel(
-                id = UUID.randomUUID(),
-                name = binding.name.text.toString(),
-                image = imageURI,
-                position = selectedPosition
-            )
-            if(newPlayer.name.isEmpty()){
-                Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
-                    .show()
-            }
-            else{
-                app.players.add(newPlayer)
-                navigateToPlayerList()
-            }
-        }
+//        binding.btnAdd.setOnClickListener { currentView ->
+//            val newPlayer = PlayerModel(
+//                id = UUID.randomUUID(),
+//                name = binding.name.text.toString(),
+//                image = imageURI,
+//                position = selectedPosition
+//            )
+//            if(newPlayer.name.isEmpty()){
+//                Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
+//                    .show()
+//            }
+//            else{
+//                app.players.add(newPlayer)
+//                navigateToPlayerList()
+//            }
+//        }
         binding.buttonPickImage.setOnClickListener { currentView ->
             showImagePicker(imageIntentLauncher)
         }
     }
     private fun navigateToPlayerList(){
-        val action = AddNewPlayerFragmentDirections.actionAddNewPlayerFragmentToListAllPlayersFragment()
-        NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {
         @JvmStatic

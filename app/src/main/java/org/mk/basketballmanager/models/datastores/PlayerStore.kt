@@ -16,59 +16,31 @@ import kotlin.collections.HashMap
 private const val PLAYERS_JSON_FILE = "players.json"
 
 class PlayerStore(private val context: Context) : DataStore<PlayerModel> {
-    private val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting()
-        .registerTypeAdapter(Uri::class.java, URIParser())
-        .create()
-    private val listType: Type = object : TypeToken<HashMap<UUID , PlayerModel>>() {}.type
-    private var players: HashMap<UUID, PlayerModel> = HashMap()
-    
-    init {
-        if (exists(context, PLAYERS_JSON_FILE)) {
-            deserialize()
-        }
+    override fun findAll(): List<PlayerModel> {
+        TODO("Not yet implemented")
     }
 
-    override fun findAll(): ArrayList<PlayerModel> {
-        return ArrayList(players.values)
+    override fun create(obj: PlayerModel) {
+        TODO("Not yet implemented")
     }
-    override fun create(obj: PlayerModel){
 
+    override fun update(obj: PlayerModel) {
+        TODO("Not yet implemented")
     }
-    override fun update(obj: PlayerModel){
-        val playlistToUpdate = players[obj.id]
-        // If it finds the correct track by id, update it.
-        playlistToUpdate?.let{
-            players[obj.id] = obj
-            serialize()
-        }
-    }
-    override fun add(obj: PlayerModel){
-        players[obj.id] = obj
-        serialize()
+
+    override fun add(obj: PlayerModel) {
+        TODO("Not yet implemented")
     }
 
     override fun delete(obj: PlayerModel) {
-        players.remove(obj.id)
-        serialize()
-    }
-
-
-
-    private fun serialize() {
-        val jsonString = gsonBuilder.toJson(players, listType)
-        write(context, PLAYERS_JSON_FILE, jsonString)
-    }
-    private fun deserialize() {
-        val jsonString = read(context, PLAYERS_JSON_FILE)
-        players = gsonBuilder.fromJson(jsonString, listType)
+        TODO("Not yet implemented")
     }
 
     override fun findOne(obj: PlayerModel): PlayerModel? {
-        return players[obj.id]
+        TODO("Not yet implemented")
     }
 
     override fun deleteAll() {
-        players = HashMap()
-        serialize()
+        TODO("Not yet implemented")
     }
 }

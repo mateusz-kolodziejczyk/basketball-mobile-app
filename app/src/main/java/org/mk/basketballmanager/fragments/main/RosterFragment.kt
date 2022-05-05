@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navGraphViewModels
@@ -14,8 +13,7 @@ import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.adapters.RosterAdapter
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentListBinding
-import org.mk.basketballmanager.fragments.login.SignInFragment
-import org.mk.basketballmanager.helpers.playerIDsToModels
+import org.mk.basketballmanager.ui.auth.LoginFragment
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.viewmodels.TeamViewModel
 
@@ -51,9 +49,6 @@ class RosterFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         model.getSelectedTeam().observe(viewLifecycleOwner, { selectedTeam ->
             // This converts the id values stored in team roster into actual player models
-            val players = playerIDsToModels(app.teams.getRoster(selectedTeam).keys.toList(), app.players.findAll())
-
-            binding.recyclerView.adapter = RosterAdapter(players, navigateToPlayerInfo)
         })
     }
     // Menu
@@ -95,19 +90,15 @@ class RosterFragment : Fragment() {
     }
 
     private val navigateToPlayerInfo = { player: PlayerModel ->
-        val action = RosterFragmentDirections.actionRosterFragmentToPlayerInfoFragment(player)
-        NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun navigateToAddPlayer(){
-        val action = RosterFragmentDirections.actionRosterFragmentToAddPlayerToRosterFragment()
-        NavHostFragment.findNavController(this).navigate(action)
     }
 
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SignInFragment().apply {
+            LoginFragment().apply {
                 arguments = Bundle().apply {
                 }
             }

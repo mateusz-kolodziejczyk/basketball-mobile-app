@@ -55,7 +55,6 @@ class GeneralPlayerInfo : Fragment() {
             }
             binding.teamPlayerInfoContent.buttonDelete.setOnClickListener {
                 app.players.delete(playerModel)
-                app.teams.deletePlayerFromRosters(playerModel)
                 navigateToPlayerList()
             }
         }
@@ -63,12 +62,8 @@ class GeneralPlayerInfo : Fragment() {
 
     }
     fun navigateToUpdatePlayer(player: PlayerModel){
-            val action = GeneralPlayerInfoDirections.actionGeneralPlayerInfoToUpdatePlayerFragment(player)
-            NavHostFragment.findNavController(this).navigate(action)
     }
     fun navigateToPlayerList(){
-        val action = GeneralPlayerInfoDirections.actionGeneralPlayerInfoToListAllPlayersFragment()
-        NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {
         @JvmStatic

@@ -53,7 +53,6 @@ class TeamPlayerInfoFragment : Fragment() {
                 .into(binding.playerInfo.image)
             binding.teamPlayerInfoContent.buttonDelete.setOnClickListener { currentView ->
                 model.getSelectedTeam().value?.let { teamModel ->
-                    app.teams.removePlayer(teamModel, playerModel)
                     navigateToRoster()
                 } ?: run{
                     Snackbar.make(currentView, R.string.error_player_does_not_exist, Snackbar.LENGTH_LONG)
@@ -68,12 +67,8 @@ class TeamPlayerInfoFragment : Fragment() {
 
     }
     fun navigateToUpdatePlayer(player: PlayerModel){
-            val action = TeamPlayerInfoFragmentDirections.actionPlayerInfoFragmentToUpdatePlayerFragment(player)
-            NavHostFragment.findNavController(this).navigate(action)
     }
     fun navigateToRoster(){
-        val action = TeamPlayerInfoFragmentDirections.actionPlayerInfoFragmentToRosterFragment()
-        NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {
         @JvmStatic

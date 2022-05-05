@@ -4,20 +4,16 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.adapters.RosterAdapter
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentListBinding
-import org.mk.basketballmanager.fragments.login.SignInFragment
-import org.mk.basketballmanager.helpers.playerIDsToModels
+import org.mk.basketballmanager.ui.auth.LoginFragment
 import org.mk.basketballmanager.models.PlayerModel
-import org.mk.basketballmanager.viewmodels.TeamViewModel
 
 class ListAllPlayersFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
@@ -80,13 +76,9 @@ class ListAllPlayersFragment : Fragment() {
     }
 
     private val navigateToPlayerInfo = { player: PlayerModel ->
-        val action = ListAllPlayersFragmentDirections.actionListAllPlayersFragmentToGeneralPlayerInfo(player)
-        NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun navigateToAddPlayer(){
-        val action = ListAllPlayersFragmentDirections.actionListAllPlayersFragmentToAddNewPlayer()
-        NavHostFragment.findNavController(this).navigate(action)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -102,7 +94,7 @@ class ListAllPlayersFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SignInFragment().apply {
+            LoginFragment().apply {
                 arguments = Bundle().apply {
                 }
             }

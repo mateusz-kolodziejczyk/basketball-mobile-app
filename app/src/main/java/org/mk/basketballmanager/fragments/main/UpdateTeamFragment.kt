@@ -46,44 +46,39 @@ class UpdateTeamFragment : Fragment() {
 
         activity.setActionBarTitle("Update Team Info")
         binding.updateButton.text = resources.getString(R.string.update)
-        teamViewModel.getSelectedTeam().observe(viewLifecycleOwner, { selectedTeam ->
-            binding.updateLocationButton.setOnClickListener { _ ->
-                locationViewModel.setLocation(selectedTeam.location.copy())
-                navigateToMap()
-            }
-            binding.name.setText(selectedTeam.name)
-            binding.updateButton.setOnClickListener { currentView ->
-                val updatedTeam = TeamModel(
-                    id = selectedTeam.id,
-                    name = binding.name.text.toString(),
-                    roster = selectedTeam.roster,
-                    location = selectedTeam.location,
-                    owner = selectedTeam.owner
-                )
-                // If the location view model value is not null, set the location to that.
-                locationViewModel.getLocation().value?.let{
-                    updatedTeam.location = it
-                }
-
-                if(updatedTeam.name.isEmpty()){
-                    Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
-                        .show()
-                }
-                else{
-                    app.teams.update(updatedTeam)
-                    teamViewModel.selectTeam(updatedTeam)
-                    navigateToHome()
-                }
-            }
-        })
+        teamViewModel.getSelectedTeam().observe(viewLifecycleOwner) { selectedTeam ->
+//            binding.updateLocationButton.setOnClickListener { _ ->
+//                locationViewModel.setLocation(selectedTeam.location.copy())
+//                navigateToMap()
+//            }
+//            binding.name.setText(selectedTeam.name)
+//            binding.updateButton.setOnClickListener { currentView ->
+//                val updatedTeam = TeamModel(
+//                    id = selectedTeam.id,
+//                    name = binding.name.text.toString(),
+//                    roster = selectedTeam.roster,
+//                    location = selectedTeam.location,
+//                    owner = selectedTeam.owner
+//                )
+//                // If the location view model value is not null, set the location to that.
+//                locationViewModel.getLocation().value?.let {
+//                    updatedTeam.location = it
+//                }
+//
+//                if (updatedTeam.name.isEmpty()) {
+//                    Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
+//                        .show()
+//                } else {
+//                    app.teams.update(updatedTeam)
+//                    teamViewModel.selectTeam(updatedTeam)
+//                    navigateToHome()
+//                }
+//            }
+        }
     }
     private fun navigateToHome(){
-        val action = UpdateTeamFragmentDirections.actionUpdateTeamFragmentToTeamHomeFragment()
-        NavHostFragment.findNavController(this).navigate(action)
     }
     private fun navigateToMap(){
-        val action = UpdateTeamFragmentDirections.actionUpdateTeamFragmentToMapsFragment()
-        NavHostFragment.findNavController(this).navigate(action)
     }
     companion object {
         @JvmStatic
