@@ -15,7 +15,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
-import org.mk.basketballmanager.databinding.FragmentTeamHomeBinding
 import org.mk.basketballmanager.ui.auth.LoginFragment
 import org.mk.basketballmanager.models.TeamModel
 import org.mk.basketballmanager.viewmodels.TeamViewModel
@@ -26,7 +25,6 @@ private const val ARG_USERNAME = "username"
 
 class TeamHomeFragment : Fragment() {
     private var username: String? = null
-    private lateinit var binding: FragmentTeamHomeBinding
     private val model: TeamViewModel by navGraphViewModels(R.id.main_navigation)
 
     // Handle the showing of the google map inside the fragment
@@ -60,9 +58,7 @@ class TeamHomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTeamHomeBinding.inflate(inflater, container, false)
-        return binding.root
-
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

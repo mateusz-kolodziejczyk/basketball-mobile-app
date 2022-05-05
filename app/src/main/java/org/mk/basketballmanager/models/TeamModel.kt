@@ -12,7 +12,7 @@ import kotlin.collections.HashSet
 @Parcelize
 data class TeamModel(
     var userID: String = "",
-    var name: String = "",
+    var name: String = "Team Name",
 ) : Parcelable
 {
     @Exclude

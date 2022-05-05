@@ -8,5 +8,13 @@
         android:id="@+id/teamHomeFragment"
         android:name="org.mk.basketballmanager.ui.team.TeamHomeFragment"
         android:label="team_home_fragment"
-        tools:layout="@layout/team_home_fragment" />
+        tools:layout="@layout/team_home_fragment" >
+        <action
+            android:id="@+id/action_teamHomeFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailFragment"
+        android:name="org.mk.basketballmanager.ui.team.TeamDetailFragment"
+        android:label="TeamDetailFragment" />
 </navigation>

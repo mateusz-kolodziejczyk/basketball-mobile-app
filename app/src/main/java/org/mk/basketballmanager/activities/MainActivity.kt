@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.rosterFragment,
                 R.id.teamHomeFragment,
-                R.id.updateTeamFragment,
+                R.id.teamDetailFragment,
                 R.id.listAllPlayersFragment,), drawerLayout
         )
 

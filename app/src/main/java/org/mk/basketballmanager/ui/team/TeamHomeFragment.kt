@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import ie.wit.donationx.ui.auth.LoggedInViewModel
 import org.mk.basketballmanager.R
+import org.mk.basketballmanager.databinding.TeamHomeFragmentBinding
 import org.mk.basketballmanager.utils.createLoader
 import org.mk.basketballmanager.utils.hideLoader
 import org.mk.basketballmanager.utils.showLoader
@@ -19,6 +20,7 @@ class TeamHomeFragment : Fragment() {
     lateinit var loader : AlertDialog
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
     private val teamViewModel : TeamViewModel by activityViewModels()
+    private lateinit var binding : TeamHomeFragmentBinding
     companion object {
         fun newInstance() = TeamHomeFragment()
     }
@@ -29,13 +31,15 @@ class TeamHomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = TeamHomeFragmentBinding.inflate(inflater, container, false)
         loader = createLoader(requireActivity())
         teamViewModel.observableTeam.observe(viewLifecycleOwner, Observer { team ->
             team?.let {
                 hideLoader(loader)
+                binding.name.text = it.name
             }
         })
-        return inflater.inflate(R.layout.team_home_fragment, container, false)
+        return binding.root
     }
 
     override fun onResume() {
@@ -48,6 +52,7 @@ class TeamHomeFragment : Fragment() {
             }
         })
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(TeamViewModel::class.java)
