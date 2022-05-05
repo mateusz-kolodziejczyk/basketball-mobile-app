@@ -17,6 +17,9 @@ class MainApp : Application() {
     // This is only for testing, later on a team will be selected using the current user instead.
     lateinit var currentTeam: TeamModel
     override fun onCreate() {
+        super.onCreate()
+        Timber.plant(Timber.DebugTree())
+        Timber.i("BasketballManager Application Started")
         players = PlayerStore(this)
         teams = TeamStore(this)
     }

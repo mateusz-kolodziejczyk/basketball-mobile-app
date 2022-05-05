@@ -6,6 +6,7 @@ import com.google.firebase.database.*
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.models.TeamModel
 import org.mk.basketballmanager.models.datastores.BasketballManagerStore
+import timber.log.Timber
 
 object FirebaseDBManager : BasketballManagerStore {
 
@@ -15,11 +16,31 @@ object FirebaseDBManager : BasketballManagerStore {
     }
 
     override fun findTeamByID(userID: String, team: MutableLiveData<TeamModel>) {
-        TODO("Not yet implemented")
+        database.child("teams").child(userID).get().addOnSuccessListener {
+            team.value = it.getValue(TeamModel::class.java)
+            Timber.i("firebase Got value ${it.value}")
+
+            // If null, create the team
+            if(team.value == null){
+                val teamModel = TeamModel(userID = userID)
+                createTeam(userID, teamModel)
+                team.value = teamModel
+            }
+        }.addOnFailureListener {
+            Timber.e("firebase Error getting data $it")
+        }
     }
 
-    override fun createTeam(firebaseUser: MutableLiveData<FirebaseUser>, team: TeamModel) {
-        TODO("Not yet implemented")
+
+    override fun createTeam(userID: String, team: TeamModel) {
+        Timber.i("Firebase DB Reference : $database")
+        team.userID = userID
+        val teamValues = team.toMap()
+
+        val childAdd = HashMap<String, Any>()
+        childAdd["/teams/$userID"] = teamValues
+
+        database.updateChildren(childAdd)
     }
 
     override fun updateTeam(userID: String, team: TeamModel) {
@@ -59,7 +80,7 @@ object FirebaseDBManager : BasketballManagerStore {
     }
 
 
-    fun updateImageRef(userid: String,imageUri: String) {
+    fun updateImageRef(userid: String, imageUri: String) {
 
         val userDonations = database.child("user-donations").child(userid)
         val allDonations = database.child("donations")

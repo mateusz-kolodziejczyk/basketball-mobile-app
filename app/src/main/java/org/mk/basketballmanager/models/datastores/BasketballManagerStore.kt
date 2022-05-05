@@ -13,7 +13,7 @@ interface BasketballManagerStore {
     )
 
     fun findTeamByID(userID: String, team: MutableLiveData<TeamModel>)
-    fun createTeam(firebaseUser: MutableLiveData<FirebaseUser>, team: TeamModel)
+    fun createTeam(userID: String, team: TeamModel)
     fun updateTeam(userID: String, team: TeamModel)
 
     // Players

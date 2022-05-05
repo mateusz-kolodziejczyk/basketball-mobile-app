@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/teamHomeFragment2">
+    app:startDestination="@id/teamHomeFragment">
     <fragment
-        android:id="@+id/teamHomeFragment2"
+        android:id="@+id/teamHomeFragment"
         android:name="org.mk.basketballmanager.ui.team.TeamHomeFragment"
         android:label="team_home_fragment"
         tools:layout="@layout/team_home_fragment" />

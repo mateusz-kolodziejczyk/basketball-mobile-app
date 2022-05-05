@@ -11,7 +11,7 @@ import kotlin.collections.HashSet
 @IgnoreExtraProperties
 @Parcelize
 data class TeamModel(
-    val userID: String = "",
+    var userID: String = "",
     var name: String = "",
 ) : Parcelable
 {
