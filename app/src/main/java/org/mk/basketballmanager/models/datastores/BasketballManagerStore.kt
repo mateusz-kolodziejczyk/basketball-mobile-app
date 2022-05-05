@@ -19,7 +19,7 @@ interface BasketballManagerStore {
     // Players
     fun findAllPlayers(
         playersList:
-        MutableLiveData<List<TeamModel>>
+        MutableLiveData<List<PlayerModel>>
     )
 
     fun findAllFreePlayers(playersList: MutableLiveData<List<PlayerModel>>)

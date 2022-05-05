@@ -6,7 +6,6 @@ import com.google.firebase.database.*
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.models.TeamModel
 import org.mk.basketballmanager.models.datastores.BasketballManagerStore
-import timber.log.Timber
 
 object FirebaseDBManager : BasketballManagerStore {
 
@@ -27,7 +26,7 @@ object FirebaseDBManager : BasketballManagerStore {
         TODO("Not yet implemented")
     }
 
-    override fun findAllPlayers(playersList: MutableLiveData<List<TeamModel>>) {
+    override fun findAllPlayers(playersList: MutableLiveData<List<PlayerModel>>) {
         TODO("Not yet implemented")
     }
 

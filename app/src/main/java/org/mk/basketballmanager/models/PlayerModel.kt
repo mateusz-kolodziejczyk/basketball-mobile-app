@@ -22,6 +22,7 @@ data class PlayerModel(
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "id" to id,
+            "teamID" to teamID,
             "name" to name,
             "position" to position,
             "teamPosition" to teamPosition,

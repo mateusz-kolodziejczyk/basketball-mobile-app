@@ -1,4 +1,4 @@
-package org.mk.basketballmanager.ui.teamlist
+package org.mk.basketballmanager.ui.team
 
 import androidx.lifecycle.ViewModel
 

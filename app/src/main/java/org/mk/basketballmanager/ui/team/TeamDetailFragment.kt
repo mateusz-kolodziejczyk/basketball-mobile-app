@@ -1,4 +1,4 @@
-package org.mk.basketballmanager.ui.playerlist
+package org.mk.basketballmanager.ui.team
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,24 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import org.mk.basketballmanager.R
 
-class PlayerList : Fragment() {
+class TeamDetailFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PlayerList()
+        fun newInstance() = TeamDetailFragment()
     }
 
-    private lateinit var viewModel: PlayerListViewModel
+    private lateinit var viewModel: TeamViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        return inflater.inflate(R.layout.team_detail_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PlayerListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TeamViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
