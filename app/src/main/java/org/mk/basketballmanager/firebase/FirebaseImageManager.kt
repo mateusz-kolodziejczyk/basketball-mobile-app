@@ -1,7 +1,6 @@
-package ie.wit.donationx.firebase
+package org.mk.basketballmanager.firebase
 
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
@@ -55,7 +54,7 @@ object FirebaseImageManager {
                 uploadTask.addOnSuccessListener { ut ->
                     ut.metadata!!.reference!!.downloadUrl.addOnCompleteListener { task ->
                         imageUri.value = task.result!!
-                        FirebaseDBManager.updateImageRef(userid,imageUri.value.toString())
+                        FirebaseDBManager.updateImageRef(userid, imageUri.value.toString())
                     }
                 }
             }

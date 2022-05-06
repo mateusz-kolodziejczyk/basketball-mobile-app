@@ -1,13 +1,11 @@
-package ie.wit.donationx.ui.auth
+package org.mk.basketballmanager.ui.auth
 
 import android.app.Application
-import androidx.annotation.NonNull
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseUser
-import ie.wit.donationx.firebase.FirebaseAuthManager
+import org.mk.basketballmanager.firebase.FirebaseAuthManager
 
 
 class LoginRegisterViewModel (app: Application) : AndroidViewModel(app) {

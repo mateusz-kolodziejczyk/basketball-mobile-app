@@ -1,4 +1,4 @@
-package ie.wit.donationx.firebase
+package org.mk.basketballmanager.firebase
 
 import android.app.Application
 import android.provider.Settings.Global.getString
@@ -49,28 +49,28 @@ class FirebaseAuthManager(application: Application) {
 
     fun login(email: String?, password: String?) {
         firebaseAuth!!.signInWithEmailAndPassword(email!!, password!!)
-                .addOnCompleteListener(application!!.mainExecutor) { task ->
-                    if (task.isSuccessful) {
-                        liveFirebaseUser.postValue(firebaseAuth!!.currentUser)
-                        errorStatus.postValue(false)
-                    } else {
-                        Timber.i("Login Failure: $task.exception!!.message")
-                        errorStatus.postValue(true)
-                    }
+            .addOnCompleteListener(application!!.mainExecutor) { task ->
+                if (task.isSuccessful) {
+                    liveFirebaseUser.postValue(firebaseAuth!!.currentUser)
+                    errorStatus.postValue(false)
+                } else {
+                    Timber.i("Login Failure: $task.exception!!.message")
+                    errorStatus.postValue(true)
                 }
+            }
     }
 
     fun register(email: String?, password: String?) {
         firebaseAuth!!.createUserWithEmailAndPassword(email!!, password!!)
-                .addOnCompleteListener(application!!.mainExecutor) { task ->
-                    if (task.isSuccessful) {
-                        liveFirebaseUser.postValue(firebaseAuth!!.currentUser)
-                        errorStatus.postValue(false)
-                    } else {
-                        Timber.i("Registration Failure: $task.exception!!.message")
-                        errorStatus.postValue(true)
-                    }
+            .addOnCompleteListener(application!!.mainExecutor) { task ->
+                if (task.isSuccessful) {
+                    liveFirebaseUser.postValue(firebaseAuth!!.currentUser)
+                    errorStatus.postValue(false)
+                } else {
+                    Timber.i("Registration Failure: $task.exception!!.message")
+                    errorStatus.postValue(true)
                 }
+            }
     }
 
     private fun configureGoogleSignIn() {
@@ -80,34 +80,34 @@ class FirebaseAuthManager(application: Application) {
             .requestEmail()
             .build()
 
-        googleSignInClient.value = GoogleSignIn.getClient(application!!.applicationContext,gso)
+        googleSignInClient.value = GoogleSignIn.getClient(application!!.applicationContext, gso)
     }
 
     fun logOut() {
 
         firebaseAuth!!.signOut()
-        Timber.i( "DonationX : firebaseAuth Signed out")
+        Timber.i("DonationX : firebaseAuth Signed out")
         googleSignInClient.value!!.signOut()
-        Timber.i( "DonationX : googleSignInClient Signed out")
+        Timber.i("DonationX : googleSignInClient Signed out")
         //FirebaseImageManager.imageUri = null!!
         loggedOut.postValue(true)
         errorStatus.postValue(false)
     }
 
     fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        Timber.i( "DonationX firebaseAuthWithGoogle:" + acct.id!!)
+        Timber.i("DonationX firebaseAuthWithGoogle:" + acct.id!!)
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         firebaseAuth!!.signInWithCredential(credential)
             .addOnCompleteListener(application!!.mainExecutor) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update with the signed-in user's information
-                    Timber.i( "signInWithCredential:success")
+                    Timber.i("signInWithCredential:success")
                     liveFirebaseUser.postValue(firebaseAuth!!.currentUser)
 
                 } else {
                     // If sign in fails, display a message to the user.
-                    Timber.i( "signInWithCredential:failure $task.exception")
+                    Timber.i("signInWithCredential:failure $task.exception")
                     errorStatus.postValue(true)
 
                 }

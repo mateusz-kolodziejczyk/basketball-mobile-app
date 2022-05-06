@@ -1,7 +1,6 @@
-package ie.wit.donationx.firebase
+package org.mk.basketballmanager.firebase
 
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.models.TeamModel
@@ -21,7 +20,7 @@ object FirebaseDBManager : BasketballManagerStore {
             Timber.i("firebase Got value ${it.value}")
 
             // If null, create the team
-            if(team.value == null){
+            if (team.value == null) {
                 val teamModel = TeamModel(userID = userID)
                 createTeam(userID, teamModel)
                 team.value = teamModel
@@ -46,42 +45,121 @@ object FirebaseDBManager : BasketballManagerStore {
     override fun updateTeam(userID: String, team: TeamModel) {
         val teamValues = team.toMap()
 
-        val childUpdate : MutableMap<String, Any?> = HashMap()
+        val childUpdate: MutableMap<String, Any?> = HashMap()
         childUpdate["/teams/$userID"] = teamValues
 
         database.updateChildren(childUpdate)
     }
 
     override fun findAllPlayers(playersList: MutableLiveData<List<PlayerModel>>) {
-        TODO("Not yet implemented")
+        // Query all players and add them to the mutablelist
+        database.child("players").get().addOnSuccessListener { snapshot ->
+            val localList = ArrayList<PlayerModel>()
+            val children = snapshot.children
+            children.forEach { childSnapshot ->
+                val player = childSnapshot.getValue(PlayerModel::class.java)
+                player?.let{
+                    localList.add(player)
+                }
+
+            }
+            playersList.value = localList
+        }.addOnFailureListener{
+            Timber.e("firebase Error getting data $it")
+        }
     }
 
     override fun findAllFreePlayers(playersList: MutableLiveData<List<PlayerModel>>) {
-        TODO("Not yet implemented")
+        // Query all players but only add players without a teamid to the mutable list
+        database.child("players").get().addOnSuccessListener { snapshot ->
+            val localList = ArrayList<PlayerModel>()
+            val children = snapshot.children
+            children.forEach { childSnapshot ->
+                val player = childSnapshot.getValue(PlayerModel::class.java)
+                player?.let{
+                    if(it.teamID.isEmpty()){
+                        localList.add(player)
+                    }
+                }
+
+            }
+            playersList.value = localList
+        }.addOnFailureListener {
+            Timber.e("firebase Error getting data $it")
+        }
     }
 
-    override fun findPlayerByID(userID: String, team: MutableLiveData<TeamModel>) {
-        TODO("Not yet implemented")
+    override fun findPlayerByID(id: String, player: MutableLiveData<PlayerModel>) {
+        database.child("players").child(id).get().addOnSuccessListener {
+            player.value = it.getValue(PlayerModel::class.java)
+            Timber.i("firebase Got value ${it.value}")
+        }.addOnFailureListener{
+            Timber.e("firebase Error getting data $it")
+        }
     }
 
-    override fun createPlayer(firebaseUser: MutableLiveData<FirebaseUser>, team: TeamModel) {
-        TODO("Not yet implemented")
+    override fun createPlayer(player: PlayerModel) {
+        Timber.i("Firebase DB Reference : $database")
+        val values = player.toMap()
+        val key = database.child("players").push().key
+        if (key == null) {
+            Timber.i("Firebase Error : Key Empty")
+            return
+        }
+        val childAdd = HashMap<String, Any>()
+        childAdd["/players/$key"] = values
+        database.updateChildren(childAdd)
     }
 
-    override fun updatePlayer(userID: String, team: PlayerModel) {
-        TODO("Not yet implemented")
+    override fun updatePlayer(id: String, player: PlayerModel) {
+        val values = player.toMap()
+
+        val childUpdate: MutableMap<String, Any?> = HashMap()
+        childUpdate["/players/$id"] = values
+        if (player.teamID.isNotEmpty()) {
+            childUpdate["rosters/${player.teamID}/$id"] = values
+        }
+        database.updateChildren(childUpdate)
+
     }
 
     override fun getRoster(userID: String, roster: MutableLiveData<List<PlayerModel>>) {
-        TODO("Not yet implemented")
+        // Get all players from the userid roster.
+        database.child("rosters").child(userID).get().addOnSuccessListener { snapshot ->
+            val localList = ArrayList<PlayerModel>()
+            val children = snapshot.children
+            children.forEach {
+                val player = it.getValue(PlayerModel::class.java)
+                localList.add(player!!)
+            }
+            roster.value = localList
+        }
     }
 
-    override fun addPlayerToRoster(userID: String, team: TeamModel, playerID: String) {
-        TODO("Not yet implemented")
+    override fun addPlayerToRoster(userID: String, team: TeamModel, player: PlayerModel) {
+        // Add userid to player object
+        player.teamID = userID
+        val values = player.toMap()
+
+        val childUpdate: MutableMap<String, Any?> = HashMap()
+        childUpdate["/players/${player.id}"] = values
+        childUpdate["/rosters/$userID/${player.id}"] = values
+
+        database.updateChildren(childUpdate)
+
     }
 
-    override fun removePlayerFromRoster(userID: String, team: TeamModel, playerID: String) {
-        TODO("Not yet implemented")
+    override fun removePlayerFromRoster(userID: String, team: TeamModel, player: PlayerModel) {
+        // Remove userid from player
+        player.teamID = ""
+        val values = player.toMap()
+
+        val childUpdate: MutableMap<String, Any?> = HashMap()
+        childUpdate["/players/${player.id}"] = values
+        childUpdate["/rosters/$userID/${player.id}"] = null
+
+        database.updateChildren(childUpdate)
+
     }
 
 

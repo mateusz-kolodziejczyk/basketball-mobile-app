@@ -3,8 +3,7 @@ package org.mk.basketballmanager.ui.players
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseUser
-import ie.wit.donationx.firebase.FirebaseDBManager
+import org.mk.basketballmanager.firebase.FirebaseDBManager
 import org.mk.basketballmanager.models.PlayerModel
 import timber.log.Timber
 

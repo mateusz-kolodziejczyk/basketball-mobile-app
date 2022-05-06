@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import ie.wit.donationx.ui.auth.LoggedInViewModel
-import org.mk.basketballmanager.R
+import org.mk.basketballmanager.ui.auth.LoggedInViewModel
 import org.mk.basketballmanager.databinding.TeamHomeFragmentBinding
 import org.mk.basketballmanager.utils.createLoader
 import org.mk.basketballmanager.utils.hideLoader

@@ -1,10 +1,10 @@
-package ie.wit.donationx.ui.auth
+package org.mk.basketballmanager.ui.auth
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
-import ie.wit.donationx.firebase.FirebaseAuthManager
+import org.mk.basketballmanager.firebase.FirebaseAuthManager
 
 class LoggedInViewModel(app: Application) : AndroidViewModel(app) {
 

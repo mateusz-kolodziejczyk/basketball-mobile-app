@@ -11,7 +11,7 @@ import java.util.*
 @Parcelize
 data class PlayerModel(
     val id: String = "",
-    val teamID: String = "",
+    var teamID: String = "",
     var name: String = "Player",
     var position: Position = Position.None,
     var teamPosition: Position = Position.None,

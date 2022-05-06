@@ -12,9 +12,67 @@
         <action
             android:id="@+id/action_teamHomeFragment_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment" />
+        <action
+            android:id="@+id/action_teamHomeFragment_to_addPlayerFragment"
+            app:destination="@id/addPlayerFragment" />
+        <action
+            android:id="@+id/action_teamHomeFragment_to_rosterFragment"
+            app:destination="@id/rosterFragment" />
+        <action
+            android:id="@+id/action_teamHomeFragment_to_freeAgentListFragment"
+            app:destination="@id/freeAgentListFragment" />
+        <action
+            android:id="@+id/action_teamHomeFragment_to_playerList"
+            app:destination="@id/playerList" />
     </fragment>
     <fragment
         android:id="@+id/teamDetailFragment"
         android:name="org.mk.basketballmanager.ui.team.TeamDetailFragment"
-        android:label="TeamDetailFragment" />
+        android:label="TeamDetailFragment"
+        tools:layout="@layout/team_detail_fragment"/>
+    <fragment
+        android:id="@+id/rosterFragment"
+        android:name="org.mk.basketballmanager.ui.players.RosterFragment"
+        android:label="roster_fragment"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_rosterFragment_to_playerDetailFragment"
+            app:destination="@id/playerDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerDetailFragment"
+        android:name="org.mk.basketballmanager.ui.playerdetail.PlayerDetailFragment"
+        android:label="player_detail_fragment"
+        tools:layout="@layout/player_detail_fragment" >
+        <action
+            android:id="@+id/action_playerDetailFragment_to_rosterFragment"
+            app:destination="@id/rosterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/freeAgentListFragment"
+        android:name="org.mk.basketballmanager.ui.players.FreeAgentListFragment"
+        android:label="free_agent_list_fragment"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_freeAgentListFragment_to_playerDetailFragment"
+            app:destination="@id/playerDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerList"
+        android:name="org.mk.basketballmanager.ui.players.PlayerList"
+        android:label="PlayerList"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_playerList_to_playerDetailFragment"
+            app:destination="@id/playerDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPlayerFragment"
+        android:name="org.mk.basketballmanager.ui.players.AddPlayerFragment"
+        android:label="add_player_fragment"
+        tools:layout="@layout/add_player_fragment" >
+        <action
+            android:id="@+id/action_addPlayerFragment_to_teamHomeFragment"
+            app:destination="@id/teamHomeFragment" />
+    </fragment>
 </navigation>

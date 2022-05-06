@@ -11,16 +11,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
-import ie.wit.donationx.ui.auth.LoginRegisterViewModel
 import org.mk.basketballmanager.R
-import org.mk.basketballmanager.activities.MainActivity
-import org.mk.basketballmanager.databinding.FragmentSignInBinding
 import timber.log.Timber
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment

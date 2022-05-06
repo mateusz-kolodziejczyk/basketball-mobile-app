@@ -23,12 +23,12 @@ interface BasketballManagerStore {
     )
 
     fun findAllFreePlayers(playersList: MutableLiveData<List<PlayerModel>>)
-    fun findPlayerByID(userID: String, team: MutableLiveData<TeamModel>)
-    fun createPlayer(firebaseUser: MutableLiveData<FirebaseUser>, team: TeamModel)
-    fun updatePlayer(userID: String, team: PlayerModel)
+    fun findPlayerByID(id: String, player: MutableLiveData<PlayerModel>)
+    fun createPlayer(player: PlayerModel)
+    fun updatePlayer(id: String, player: PlayerModel)
 
     // Roster
     fun getRoster(userID: String, roster: MutableLiveData<List<PlayerModel>>)
-    fun addPlayerToRoster(userID: String, team: TeamModel, playerID: String)
-    fun removePlayerFromRoster(userID: String, team: TeamModel, playerID: String)
+    fun addPlayerToRoster(userID: String, team: TeamModel, player: PlayerModel)
+    fun removePlayerFromRoster(userID: String, team: TeamModel, player: PlayerModel)
 }
