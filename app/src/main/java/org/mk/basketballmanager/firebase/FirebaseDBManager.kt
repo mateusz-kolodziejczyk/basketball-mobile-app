@@ -44,7 +44,12 @@ object FirebaseDBManager : BasketballManagerStore {
     }
 
     override fun updateTeam(userID: String, team: TeamModel) {
-        TODO("Not yet implemented")
+        val teamValues = team.toMap()
+
+        val childUpdate : MutableMap<String, Any?> = HashMap()
+        childUpdate["/teams/$userID"] = teamValues
+
+        database.updateChildren(childUpdate)
     }
 
     override fun findAllPlayers(playersList: MutableLiveData<List<PlayerModel>>) {

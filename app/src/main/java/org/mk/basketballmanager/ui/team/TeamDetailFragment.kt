@@ -1,6 +1,5 @@
 package org.mk.basketballmanager.ui.team
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,16 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.navGraphViewModels
+import androidx.navigation.fragment.findNavController
 import ie.wit.donationx.ui.auth.LoggedInViewModel
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
-import org.mk.basketballmanager.databinding.FragmentUpdateTeamBinding
 import org.mk.basketballmanager.databinding.TeamDetailFragmentBinding
-import org.mk.basketballmanager.fragments.main.UpdatePlayerFragment
-import org.mk.basketballmanager.models.PlayerModel
-import org.mk.basketballmanager.viewmodels.LocationViewModel
 import timber.log.Timber
 
 class TeamDetailFragment : Fragment() {
@@ -50,6 +45,11 @@ class TeamDetailFragment : Fragment() {
 
         activity.setActionBarTitle("Update Team Info")
         binding.updateButton.text = resources.getString(R.string.update)
+        binding.updateButton.setOnClickListener { view ->
+            teamViewModel.updateTeam(binding.teamvm?.observableTeam!!.value!!)
+            teamViewModel.getTeam()
+            findNavController().navigateUp()
+        }
     }
 
     override fun onResume() {
