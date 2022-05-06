@@ -60,4 +60,8 @@
     <string name="player_name">Name</string>
     <string name="error_add_player">ERROR: Could not add player, try again.</string>
     <string name="playersNotFound">No Players Found.</string>
+    <string name="loading_players">Loading Players</string>
+    <string name="loading_player">Loading Player</string>
+    <string name="loading_team">Loading Team</string>
+
 </resources>

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import org.mk.basketballmanager.R
 import org.mk.basketballmanager.ui.auth.LoggedInViewModel
 import org.mk.basketballmanager.databinding.TeamHomeFragmentBinding
 import org.mk.basketballmanager.utils.createLoader
@@ -43,7 +44,8 @@ class TeamHomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showLoader(loader, "Downloading Donations")
+        showLoader(loader, resources.getString(R.string.loading_team))
+
         loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
             if (firebaseUser != null) {
                 teamViewModel.liveFirebaseUser.value = firebaseUser

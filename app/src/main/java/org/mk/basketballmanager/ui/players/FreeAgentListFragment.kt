@@ -39,12 +39,14 @@ class FreeAgentListFragment : Fragment() {
         binding = FragmentListBinding.inflate(inflater, container, false)
         loader = createLoader(requireActivity())
 
-        showLoader(loader, "Downloading Players")
+        showLoader(loader, resources.getString(R.string.loading_players))
+
+        setSwipeRefresh()
         freeAgentListViewModel.observableFreeAgents.observe(viewLifecycleOwner, Observer { players ->
             players?.let {
                 render(players as ArrayList<PlayerModel>)
                 hideLoader(loader)
-                //checkSwipeRefresh()
+                checkSwipeRefresh()
             }
         })
         return binding.root
@@ -121,10 +123,21 @@ class FreeAgentListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        showLoader(loader, "Downloading Players")
+        showLoader(loader, resources.getString(R.string.loading_players))
         freeAgentListViewModel.load()
     }
+    private fun setSwipeRefresh() {
+        binding.swiperefresh.setOnRefreshListener {
+            binding.swiperefresh.isRefreshing = true
+            showLoader(loader, resources.getString(R.string.loading_players))
+            freeAgentListViewModel.load()
+        }
+    }
 
+    private fun checkSwipeRefresh() {
+        if (binding.swiperefresh.isRefreshing)
+            binding.swiperefresh.isRefreshing = false
+    }
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
