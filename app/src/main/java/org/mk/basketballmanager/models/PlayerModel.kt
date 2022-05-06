@@ -10,11 +10,10 @@ import java.util.*
 @IgnoreExtraProperties
 @Parcelize
 data class PlayerModel(
-    val id: String = "",
+    var id: String = "",
     var teamID: String = "",
     var name: String = "Player",
     var position: Position = Position.None,
-    var teamPosition: Position = Position.None,
     var image: String = "",
 ) : Parcelable
 {
@@ -25,7 +24,6 @@ data class PlayerModel(
             "teamID" to teamID,
             "name" to name,
             "position" to position,
-            "teamPosition" to teamPosition,
             "image" to image,
         )
     }

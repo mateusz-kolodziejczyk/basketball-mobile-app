@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.players.AddPlayerFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ui.playerdetail.AddPlayerFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:fillViewport="true"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="8dp"
+                android:autofillHints=""
+                android:hint="@string/hint_playerName"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:layout_marginBottom="30dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:imeOptions="actionDone"
+                />
+            <TextView
+                android:id="@+id/positionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="30dp"
+                android:textSize="16sp"
+                android:text="@string/position_textview"
+                tools:text="Position" />
+            <Spinner
+                android:id="@+id/positionSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp">
+            </Spinner>
+            <ImageView
+                android:id="@+id/image"
+                android:contentDescription="@string/player_image"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_gravity="center"
+                />
+            <Button
+                android:id="@+id/buttonPickImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:stateListAnimator="@null"
+                android:text="@string/pickImage"
+                android:textSize="16sp" />
 
-</FrameLayout>
+            <Button
+                android:id="@+id/buttonAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:stateListAnimator="@null"
+                android:text="@string/add"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

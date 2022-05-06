@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/addPlayerFragment"
-        android:name="org.mk.basketballmanager.ui.players.AddPlayerFragment"
+        android:name="org.mk.basketballmanager.ui.playerdetail.AddPlayerFragment"
         android:label="add_player_fragment"
         tools:layout="@layout/add_player_fragment" >
         <action

@@ -100,12 +100,14 @@ object FirebaseDBManager : BasketballManagerStore {
 
     override fun createPlayer(player: PlayerModel) {
         Timber.i("Firebase DB Reference : $database")
-        val values = player.toMap()
         val key = database.child("players").push().key
         if (key == null) {
             Timber.i("Firebase Error : Key Empty")
             return
         }
+        player.id = key
+
+        val values = player.toMap()
         val childAdd = HashMap<String, Any>()
         childAdd["/players/$key"] = values
         database.updateChildren(childAdd)

@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
-import org.mk.basketballmanager.adapters.RosterAdapter
+import org.mk.basketballmanager.adapters.PlayerAdapter
 import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.FragmentListBinding
 import org.mk.basketballmanager.ui.auth.LoginFragment
@@ -72,7 +71,7 @@ class RosterFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                val adapter = binding.recyclerView.adapter as RosterAdapter
+                val adapter = binding.recyclerView.adapter as PlayerAdapter
                 adapter.filter.filter(newText)
                 return false
             }

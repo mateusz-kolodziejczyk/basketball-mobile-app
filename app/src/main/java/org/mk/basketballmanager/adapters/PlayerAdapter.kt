@@ -11,10 +11,10 @@ import org.mk.basketballmanager.models.PlayerModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RosterAdapter(private var players: List<PlayerModel>,
+class PlayerAdapter(private var players: ArrayList<PlayerModel>,
                     private val onClickFunction: (PlayerModel) -> Unit
 ) :
-    RecyclerView.Adapter<RosterAdapter.MainHolder>(), Filterable {
+    RecyclerView.Adapter<PlayerAdapter.MainHolder>(), Filterable {
     val originalList = players
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardPlayerBinding
@@ -27,22 +27,26 @@ class RosterAdapter(private var players: List<PlayerModel>,
         val playlist = players[holder.adapterPosition]
         holder.bind(playlist, onClickFunction)
     }
-
+    fun removeAt(position: Int) {
+        players.removeAt(position)
+        notifyItemRemoved(position)
+    }
     override fun getItemCount(): Int = players.size
+
     // Filter Code taken from https://stackoverflow.com/a/37735562
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun publishResults(constraint: CharSequence, results: FilterResults) {
-                players = results.values as List<PlayerModel>
+                players = results.values as ArrayList<PlayerModel>
                 notifyDataSetChanged()
             }
 
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 var filteredResults: List<PlayerModel?>? = null
-                if (constraint.isEmpty()) {
-                    filteredResults = originalList
+                filteredResults = if (constraint.isEmpty()) {
+                    originalList
                 } else {
-                    filteredResults = getFilteredResults(constraint.toString()
+                    getFilteredResults(constraint.toString()
                         .lowercase(Locale.getDefault()))
                 }
                 val results = FilterResults()

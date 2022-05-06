@@ -55,4 +55,8 @@
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="emailpassword_title_text">Please Login Below</string>
     <string name="messageLoading">Loading</string>
+    <string name="allPlayers">All Players</string>
+    <string name="freeAgents">Free Agents</string>
+    <string name="player_name">Name</string>
+    <string name="error_add_player">ERROR: Could not add player, try again.</string>
 </resources>
