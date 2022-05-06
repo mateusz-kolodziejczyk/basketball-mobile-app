@@ -57,7 +57,6 @@ class PlayerList : Fragment() {
         val activity = activity as MainActivity
 
         // Set action bar title
-        activity.setActionBarTitle("All Players")
         binding.recyclerView.layoutManager = layoutManager
     }
 
@@ -119,7 +118,11 @@ class PlayerList : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+    override fun onResume() {
+        super.onResume()
+        showLoader(loader, "Downloading Players")
+        playerListViewModel.load()
+    }
 
     companion object {
         @JvmStatic
