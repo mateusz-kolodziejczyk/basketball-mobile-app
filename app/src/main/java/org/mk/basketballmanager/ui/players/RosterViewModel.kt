@@ -15,6 +15,7 @@ class RosterViewModel : ViewModel() {
     val observableRoster: LiveData<List<PlayerModel>>
         get() = roster
 
+    init{ load() }
 
     fun load(){
         try{

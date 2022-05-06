@@ -13,6 +13,7 @@ class PlayerListViewModel : ViewModel() {
     val observablePlayers: LiveData<List<PlayerModel>>
         get() = players
 
+    init{ load() }
 
     fun load(){
         try{

@@ -71,9 +71,11 @@ class PlayerAdapter(private var players: ArrayList<PlayerModel>,
             binding.name.text = player.name
             binding.position.text = player.position.toString()
             binding.root.setOnClickListener { onClickFunction(player) }
-            Picasso.get()
-                .load(player.image)
-                .into(binding.image)
+            if(player.image.isNotEmpty()){
+                Picasso.get()
+                    .load(player.image)
+                    .into(binding.image)
+            }
         }
     }
 

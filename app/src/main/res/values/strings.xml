@@ -59,4 +59,5 @@
     <string name="freeAgents">Free Agents</string>
     <string name="player_name">Name</string>
     <string name="error_add_player">ERROR: Could not add player, try again.</string>
+    <string name="playersNotFound">No Players Found.</string>
 </resources>

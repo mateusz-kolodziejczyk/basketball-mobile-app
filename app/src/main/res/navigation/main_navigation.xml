@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_playerDetailFragment_to_rosterFragment"
             app:destination="@id/rosterFragment" />
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/freeAgentListFragment"

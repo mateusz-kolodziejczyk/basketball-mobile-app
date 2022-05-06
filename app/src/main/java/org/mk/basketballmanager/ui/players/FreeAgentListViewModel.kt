@@ -13,6 +13,8 @@ class FreeAgentListViewModel : ViewModel() {
     val observableFreeAgents: LiveData<List<PlayerModel>>
         get() = freeAgents
 
+    init{ load() }
+
 
     fun load(){
         try{
