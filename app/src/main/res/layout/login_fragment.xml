@@ -3,54 +3,15 @@
     android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_100"
     android:orientation="vertical"
     android:weightSum="4"
     tools:context=".ui.auth.LoginFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/icon"
-            style="@style/ThemeOverlay.FirebaseIcon"
-            android:layout_width="286dp"
-            android:layout_height="325dp"
-            android:contentDescription="@string/desc_firebase_lockup"
-            android:src="@drawable/ic_baseline_local_hospital_24" />
-
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/title_bottom_margin"
-            android:text="@string/emailpassword_title_text"
-            android:textColor="@color/white"
-            android:theme="@style/ThemeOverlay.MyTitleText" />
-
-        <TextView
-            android:id="@+id/status"
-            style="@style/ThemeOverlay.MyTextDetail"
-            android:text="@string/signed_out"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/detail"
-            style="@style/ThemeOverlay.MyTextDetail"
-            tools:text="Firebase User ID: 123456789abc" />
-
-    </LinearLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white"
+        android:layout_weight="2"
         android:gravity="center_vertical">
 
         <LinearLayout
@@ -107,6 +68,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/googleSignInButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/emailPasswordButtons"
@@ -121,6 +83,24 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/firebaseUI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/googleSignInButtons"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <Button
+                android:id="@+id/firebaseUIButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/firebase_ui"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/signedInButtons"
             android:layout_width="match_parent"

@@ -1,9 +1,12 @@
 package org.mk.basketballmanager.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +18,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.github.ajalt.timberkt.Timber
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.databinding.ActivityMainBinding
+import org.mk.basketballmanager.ui.auth.LoggedInViewModel
+import org.mk.basketballmanager.ui.auth.Login
 import timber.log.Timber.i
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainBinding : ActivityMainBinding
     lateinit var navController: NavController
     private lateinit var appBarConfiguration : AppBarConfiguration
-
+    private lateinit var loggedInViewModel: LoggedInViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +72,20 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+    override fun onStart() {
+        super.onStart()
+        loggedInViewModel = ViewModelProvider(this)[LoggedInViewModel::class.java]
+
+    }
+    fun signOut(item: MenuItem) {
+        loggedInViewModel.logOut()
+        val intent = Intent(this, Login::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import org.mk.basketballmanager.firebase.FirebaseAuthManager
 
@@ -23,6 +24,10 @@ class LoginRegisterViewModel (app: Application) : AndroidViewModel(app) {
 
     fun authWithGoogle(acct: GoogleSignInAccount) {
         firebaseAuthManager.firebaseAuthWithGoogle(acct)
+    }
+
+    fun setUser(user: FirebaseUser){
+        liveFirebaseUser.value = user
     }
 }
 
