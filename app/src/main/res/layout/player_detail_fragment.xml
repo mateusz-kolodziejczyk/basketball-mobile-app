@@ -1,104 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="playervm"
+            name="playerDetailVm"
             type="org.mk.basketballmanager.ui.playerdetail.PlayerDetailViewModel" />
     </data>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="ui.playerdetail.PlayerDetailFragment">
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:background="@color/white">
-        <LinearLayout
+        tools:context="ui.playerdetail.AddPlayerFragment">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/nameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/player_name"
-                android:textSize="16sp"
-                tools:text="Name" />
-
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_margin="8dp"
-                android:autofillHints=""
-                android:hint="@string/hint_playerName"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:layout_marginBottom="30dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:imeOptions="actionDone"
-                android:text="@={playervm.observablePlayer.name}"
-                />
-            <TextView
-                android:id="@+id/positionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="30dp"
-                android:textSize="16sp"
-                android:text="@string/position_textview"
-                tools:text="Position" />
-            <Spinner
-                android:id="@+id/positionSpinner"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp">
-            </Spinner>
-            <ImageView
-                android:id="@+id/image"
-                android:contentDescription="@string/player_image"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center"
-                />
-            <Button
-                android:id="@+id/buttonPickImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:stateListAnimator="@null"
-                android:text="@string/pickImage"
-                android:textSize="16sp" />
+                android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    android:background="@android:color/transparent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:endIconMode="clear_text"
+                    app:endIconDrawable="@drawable/ic_circle_x"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="30dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text="@={playerDetailVm.observablePlayer.name}"
+                        android:hint="@string/hint_playerName"
+                        android:imeOptions="actionDone">
 
-            <Button
-                android:id="@+id/buttonUpdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:stateListAnimator="@null"
-                android:text="@string/update"
-                android:textSize="16sp"
-                />
-        </LinearLayout>
-    </ScrollView>
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:id="@+id/positionTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="16sp"
+                        android:text="@string/position_textview"
+                        tools:text="Position" />
+                    <Spinner
+                        android:id="@+id/positionSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="30dp">
+                    </Spinner>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        android:background="@android:color/transparent"
+                        app:endIconMode="clear_text"
+                        app:endIconDrawable="@drawable/ic_circle_x"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_weight="1">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/city"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_margin="8dp"
+                            android:hint="@string/hint_city"
+                            android:text="@={playerDetailVm.observablePlayer.city}"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:imeOptions="actionDone" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        android:background="@android:color/transparent"
+                        app:endIconMode="clear_text"
+                        app:endIconDrawable="@drawable/ic_circle_x"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_weight="1">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/region"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_margin="8dp"
+                            android:hint="@string/hint_region"
+                            android:text="@={playerDetailVm.observablePlayer.region}"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:imeOptions="actionDone" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    android:background="@android:color/transparent"
+                    app:endIconMode="clear_text"
+                    app:endIconDrawable="@drawable/ic_circle_x"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="20dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/country"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_margin="8dp"
+                        android:hint="@string/hint_country"
+                        android:text="@={playerDetailVm.observablePlayer.country}"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:imeOptions="actionDone" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <ImageView
+                        android:id="@+id/image"
+                        android:contentDescription="@string/player_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_player_image_placeholder"
+                        />
+                    <Button
+                        android:id="@+id/buttonPickImage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:layout_marginRight="20dp"
+                        android:stateListAnimator="@null"
+                        android:text="@string/pickImage"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/buttonUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/update"
+                    android:textSize="24sp"
+                    />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -116,13 +116,13 @@ object FirebaseDBManager : BasketballManagerStore {
     fun getPlayerKey(): String? {
         return database.child("players").push().key
     }
-    override fun updatePlayer(id: String, player: PlayerModel) {
+    override fun updatePlayer(player: PlayerModel) {
         val values = player.toMap()
 
         val childUpdate: MutableMap<String, Any?> = HashMap()
-        childUpdate["/players/$id"] = values
+        childUpdate["/players/${player.id}"] = values
         if (player.teamID.isNotEmpty()) {
-            childUpdate["rosters/${player.teamID}/$id"] = values
+            childUpdate["rosters/${player.teamID}/${player.id}"] = values
         }
         database.updateChildren(childUpdate)
 

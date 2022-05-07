@@ -127,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_margin="8dp"
                     android:hint="@string/hint_country"
-                    android:text="@={addPlayerVM.observablePlayer.region}"
+                    android:text="@={addPlayerVM.observablePlayer.country}"
                     android:inputType="text"
                     android:maxLines="1"
                     android:imeOptions="actionDone" />

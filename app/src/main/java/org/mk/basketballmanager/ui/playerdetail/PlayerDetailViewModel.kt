@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
+import org.mk.basketballmanager.enums.Position
+import org.mk.basketballmanager.firebase.FirebaseDBManager
 import org.mk.basketballmanager.models.PlayerModel
 import timber.log.Timber
 
@@ -17,6 +19,7 @@ class PlayerDetailViewModel : ViewModel() {
 
     fun getPlayer(id: String){
         try{
+            FirebaseDBManager.findPlayerByID(id, player)
             Timber.i("Team Detail update() success: $player")
         }
         catch(e: Exception){
@@ -24,13 +27,29 @@ class PlayerDetailViewModel : ViewModel() {
         }
     }
 
-    fun updateTeam(userID: String, id: String, player: PlayerModel){
+    fun updatePlayer() {
         try{
-                Timber.i("Team Detail update() success: $player")
+            player.value?.let {
+                FirebaseDBManager.updatePlayer(it)
+                Timber.i("Team Detail update() success: ${player.value}")
+            }
         }
         catch(e: Exception){
             Timber.i("Team Detail update() error: ${e.message}")
         }
     }
 
+    fun updateImage(image: String){
+        player.value?.let {
+            it.image = image
+            player.value = it
+        }
+    }
+
+    fun updatePosition(position: Position){
+        player.value?.let{
+            it.position = position
+            player.value = it
+        }
+    }
 }

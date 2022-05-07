@@ -25,7 +25,7 @@ interface BasketballManagerStore {
     fun findAllFreePlayers(playersList: MutableLiveData<List<PlayerModel>>)
     fun findPlayerByID(id: String, player: MutableLiveData<PlayerModel>)
     fun createPlayer(player: PlayerModel): Boolean
-    fun updatePlayer(id: String, player: PlayerModel)
+    fun updatePlayer(player: PlayerModel)
     fun deletePlayer(id: String)
 
     // Roster
