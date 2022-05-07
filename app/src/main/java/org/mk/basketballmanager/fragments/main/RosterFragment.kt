@@ -44,11 +44,10 @@ class RosterFragment : Fragment() {
         val app = activity.application as MainApp
         // Set action bar title
 
-        activity.setActionBarTitle("Roster")
         binding.recyclerView.layoutManager = layoutManager
-        model.getSelectedTeam().observe(viewLifecycleOwner, { selectedTeam ->
+        model.getSelectedTeam().observe(viewLifecycleOwner) { selectedTeam ->
             // This converts the id values stored in team roster into actual player models
-        })
+        }
     }
     // Menu
     // Taken from https://stackoverflow.com/a/52018980

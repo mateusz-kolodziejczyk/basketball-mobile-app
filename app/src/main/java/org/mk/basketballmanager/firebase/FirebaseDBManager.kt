@@ -173,7 +173,7 @@ object FirebaseDBManager : BasketballManagerStore {
 
     }
 
-    override fun removePlayerFromRoster(userID: String, team: TeamModel, player: PlayerModel) {
+    override fun removePlayerFromRoster(userID: String, player: PlayerModel) {
         // Remove userid from player
         player.teamID = ""
         val values = player.toMap()

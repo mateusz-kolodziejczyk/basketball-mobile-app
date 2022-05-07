@@ -15,8 +15,6 @@ class RosterViewModel : ViewModel() {
     val observableRoster: LiveData<List<PlayerModel>>
         get() = roster
 
-    init{ load() }
-
     fun load(){
         try{
             liveFirebaseUser.value?.let {
@@ -28,6 +26,20 @@ class RosterViewModel : ViewModel() {
         }
         catch(e: Exception){
             Timber.i("Roster load() error: ${e.message}")
+        }
+    }
+
+    fun removePlayer(player: PlayerModel) {
+        try{
+            liveFirebaseUser.value?.let {
+                FirebaseDBManager.removePlayerFromRoster(it.uid, player)
+                Timber.i("Roster removeplayer() success: ${roster.value.toString()}")
+            } ?: run{
+                Timber.i("Roster removeplayer() error: user id is null")
+            }
+        }
+        catch(e: Exception){
+            Timber.i("Roster removeplayer() error: ${e.message}")
         }
     }
 }
