@@ -78,4 +78,16 @@
             android:id="@+id/action_addPlayerFragment_to_teamHomeFragment"
             app:destination="@id/teamHomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="org.mk.basketballmanager.ui.maps.MapsFragment"
+        android:label="Map"
+        tools:layout="@layout/maps_fragment" >
+        <action
+            android:id="@+id/action_mapsFragment_to_playerDetailFragment"
+            app:destination="@id/playerDetailFragment" />
+        <action
+            android:id="@+id/action_mapsFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+    </fragment>
 </navigation>

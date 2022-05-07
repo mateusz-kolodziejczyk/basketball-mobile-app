@@ -68,5 +68,7 @@
     <string name="adding_player_roster">Adding to Roster</string>
     <string name="firebase_ui">Firebase UI</string>
     <string name="access_control">Access Control</string>
+    <string name="menu_map">Map</string>
+    <string name="team">Team</string>
 
 </resources>

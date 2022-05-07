@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_baseline_people_24"
             android:title="@string/menu_roster" />
         <item
+            android:id="@+id/teamDetailFragment"
+            android:icon="@drawable/ic_baseline_sports_basketball_24"
+            android:title="@string/updateTeam" />
+        <item
             android:id="@+id/playerList"
             android:icon="@drawable/ic_baseline_list_24"
             android:title="@string/allPlayers" />
@@ -20,28 +24,16 @@
             android:id="@+id/freeAgentListFragment"
             android:icon="@drawable/ic_baseline_list_24"
             android:title="@string/freeAgents" />
-        <item
-            android:id="@+id/teamDetailFragment"
-            android:icon="@drawable/ic_baseline_sports_basketball_24"
-            android:title="@string/updateTeam" />
+
         <item
             android:id="@+id/addPlayerFragment"
             android:icon="@drawable/ic_baseline_sports_basketball_24"
             android:title="@string/addNewPlayer" />
+        <item
+            android:id="@+id/mapsFragment"
+            android:icon="@drawable/ic_baseline_sports_basketball_24"
+            android:title="@string/menu_map" />
     </group>
-
-    <item android:title="@string/group_communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_baseline_share_24"
-                android:title="@string/action_share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_baseline_send_24"
-                android:title="@string/action_send" />
-        </menu>
-    </item>
 
     <item android:title="@string/access_control">
         <menu>
