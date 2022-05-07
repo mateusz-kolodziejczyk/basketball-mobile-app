@@ -41,7 +41,7 @@ class AddPlayerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         registerImagePickerCallback()
         // Inflate the layout for this fragment
         binding = AddPlayerFragmentBinding.inflate(inflater, container, false)

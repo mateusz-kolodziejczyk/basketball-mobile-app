@@ -34,7 +34,15 @@
             android:icon="@drawable/ic_baseline_sports_basketball_24"
             android:title="@string/menu_map" />
     </group>
-
+    <item android:title="@string/options">
+        <menu>
+            <item
+                android:id="@+id/nightModeToggle"
+                android:icon="@drawable/ic_light_mode"
+                android:onClick="toggleNightMode"
+                android:title="@string/light_mode" />
+        </menu>
+    </item>
     <item android:title="@string/access_control">
         <menu>
             <item

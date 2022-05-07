@@ -15,7 +15,11 @@ data class PlayerModel(
     var name: String = "Player",
     var position: Position = Position.None,
     var image: String = "",
-) : Parcelable
+    override var city: String = "",
+    override var region: String = "",
+    override var country: String = ""
+
+) : Parcelable, Addressable
 {
     @Exclude
     fun toMap(): Map<String, Any?> {
@@ -25,6 +29,11 @@ data class PlayerModel(
             "name" to name,
             "position" to position,
             "image" to image,
+            "city" to city,
+            "region" to region,
+            "country" to country,
         )
     }
+
+
 }

@@ -18,14 +18,14 @@ import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.app.MainApp
-import org.mk.basketballmanager.databinding.FragmentAddUpdatePlayerBinding
+import org.mk.basketballmanager.databinding.PlayerDetailFragmentBinding
 import org.mk.basketballmanager.enums.Position
 import org.mk.basketballmanager.fragments.main.UpdatePlayerFragment
 import org.mk.basketballmanager.helpers.showImagePicker
 import timber.log.Timber
 
 class PlayerDetailFragment : Fragment() {
-    lateinit var binding: FragmentAddUpdatePlayerBinding
+    lateinit var binding: PlayerDetailFragmentBinding
     private val addPlayerViewModel: AddPlayerViewModel by activityViewModels()
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     var imageURI: Uri = Uri.EMPTY
@@ -42,7 +42,7 @@ class PlayerDetailFragment : Fragment() {
     ): View? {
         registerImagePickerCallback()
         // Inflate the layout for this fragment
-        binding = FragmentAddUpdatePlayerBinding.inflate(inflater, container, false)
+        binding = PlayerDetailFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -73,7 +73,7 @@ class PlayerDetailFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        binding.btnAdd.text = resources.getString(R.string.add)
+ //       binding.btnAdd.text = resources.getString(R.string.add)
 //        binding.btnAdd.setOnClickListener { currentView ->
 //            val newPlayer = PlayerModel(
 //                id = UUID.randomUUID(),

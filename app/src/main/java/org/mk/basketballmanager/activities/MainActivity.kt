@@ -1,26 +1,20 @@
 package org.mk.basketballmanager.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
-import com.github.ajalt.timberkt.Timber
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.databinding.ActivityMainBinding
 import org.mk.basketballmanager.ui.auth.LoggedInViewModel
-import org.mk.basketballmanager.ui.auth.Login
-import timber.log.Timber.i
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -87,6 +81,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun toggleNightMode(item: MenuItem){
+        val mode =
+            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+        AppCompatDelegate.setDefaultNightMode(mode)
+//                val mode =
+//            if (AppCompatDelegate.getLocalNightMode() == AppCompatDelegate.MODE_NIGHT_YES) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+//        AppCompatDelegate.setDefaultNightMode(mode)
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)

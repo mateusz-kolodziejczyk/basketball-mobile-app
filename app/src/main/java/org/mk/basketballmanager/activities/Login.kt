@@ -1,4 +1,4 @@
-package org.mk.basketballmanager.ui.auth
+package org.mk.basketballmanager.activities
 
 import android.os.Bundle
 import android.widget.Toast

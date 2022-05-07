@@ -13,13 +13,23 @@ import kotlin.collections.HashSet
 data class TeamModel(
     var userID: String = "",
     var name: String = "Team Name",
-) : Parcelable
+    var latitude: Double = 0.0,
+    var longitude: Double = 0.0,
+    override var city: String = "",
+    override var region: String = "",
+    override var country: String = ""
+) : Parcelable, Addressable
 {
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "userID" to userID,
             "name" to name,
+            "latitude" to latitude,
+            "longitude" to longitude,
+            "city" to city,
+            "region" to region,
+            "country" to country,
         )
     }
 }

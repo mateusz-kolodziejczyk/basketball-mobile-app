@@ -3,7 +3,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="signin_header">Sign In</string>
     <string name="view_roster">View Roster</string>
-    <string name="hint_playerName">Enter Player Name</string>
     <string name="add">Add</string>
     <string name="update">Update</string>
     <string name="error_no_name">Please enter a name</string>
@@ -19,7 +18,6 @@
     <string name="nav_header_subtitle">Team Name</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="hint_teamName">Team Name</string>
     <string name="set_location">Set Location</string>
     <string name="updateTeam">Update Team Info</string>
     <string name="listAllPlayers">Full Player List</string>
@@ -28,10 +26,17 @@
     <string name="error_player_does_not_exist">Player does not exist</string>
     <string name="pickImage">Pick Image</string>
     <string name="position_textview">Position</string>
-    <string name="hint_userName">Username</string>
     <string name="error_no_username">Please enter a username</string>
     <string name="select_profile_image">Select Profile Image</string>
 
+    <!-- HINTS-->
+    <string name="hint_playerName">Name</string>
+    <string name="hint_userName">Username</string>
+    <string name="hint_teamName">Team Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_region">Region</string>
+    <string name="hint_city">City</string>
     <!-- START Firebase Resources-->
 
     <string name="label_emailpassword">Email/Password Authentication</string>
@@ -46,8 +51,7 @@
     <string name="signed_in">Signed In</string>
     <string name="signed_out">Signed Out</string>
     <string name="token_null">Token: null</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
+
     <string name="desc_firebase_lockup">Firebase logo and name</string>
     <string name="auth_failed">Authentication failed</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
@@ -70,5 +74,9 @@
     <string name="access_control">Access Control</string>
     <string name="menu_map">Map</string>
     <string name="team">Team</string>
+    <string name="options">Options</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="dark_mode">Dark Mode</string>
+
 
 </resources>
