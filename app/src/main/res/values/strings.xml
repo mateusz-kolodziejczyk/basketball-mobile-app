@@ -77,6 +77,7 @@
     <string name="options">Options</string>
     <string name="light_mode">Light Mode</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="hint_country">Country</string>
 
 
 </resources>

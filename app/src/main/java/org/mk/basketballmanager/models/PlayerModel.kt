@@ -12,7 +12,7 @@ import java.util.*
 data class PlayerModel(
     var id: String = "",
     var teamID: String = "",
-    var name: String = "Player",
+    var name: String = "",
     var position: Position = Position.None,
     var image: String = "",
     override var city: String = "",

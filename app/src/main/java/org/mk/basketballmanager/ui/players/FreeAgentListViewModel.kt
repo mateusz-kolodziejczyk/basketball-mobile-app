@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.mk.basketballmanager.firebase.FirebaseDBManager
+import org.mk.basketballmanager.firebase.FirebaseImageManager
 import org.mk.basketballmanager.models.PlayerModel
 import timber.log.Timber
 
@@ -34,6 +35,7 @@ class FreeAgentListViewModel : ViewModel() {
         }
         try{
             FirebaseDBManager.deletePlayer(id)
+            FirebaseImageManager.deletePlayerImage(id)
             Timber.i("Playre Delete() success")
         }
         catch(e: Exception){

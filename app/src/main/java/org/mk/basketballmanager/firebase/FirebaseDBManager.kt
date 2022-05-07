@@ -98,21 +98,24 @@ object FirebaseDBManager : BasketballManagerStore {
         }
     }
 
-    override fun createPlayer(player: PlayerModel) {
-        Timber.i("Firebase DB Reference : $database")
-        val key = database.child("players").push().key
+    override fun createPlayer(player: PlayerModel): Boolean {
+        val key = getPlayerKey()
         if (key == null) {
-            Timber.i("Firebase Error : Key Empty")
-            return
+                Timber.i("Firebase Error : Key Empty")
+                return false
         }
-        player.id = key
-
+        else{
+            player.id = key
+        }
         val values = player.toMap()
         val childAdd = HashMap<String, Any>()
-        childAdd["/players/$key"] = values
+        childAdd["/players/${player.id}"] = values
         database.updateChildren(childAdd)
+        return true
     }
-
+    fun getPlayerKey(): String? {
+        return database.child("players").push().key
+    }
     override fun updatePlayer(id: String, player: PlayerModel) {
         val values = player.toMap()
 
@@ -187,24 +190,27 @@ object FirebaseDBManager : BasketballManagerStore {
     }
 
 
-    fun updateImageRef(userid: String, imageUri: String) {
+    fun updatePlayerImage(player: PlayerModel, imageUri: String) {
+        database.child("players").child(player.id).get().addOnSuccessListener { playerSnapshot ->
+            playerSnapshot.child("image").ref.setValue(imageUri)
+            if(player.teamID.isEmpty()){
+                return@addOnSuccessListener
+            }
+            database.child("rosters").child(player.teamID).child(player.id).get().addOnSuccessListener { rosterSnapshot ->
+                rosterSnapshot.child("image").ref.setValue(imageUri)
+            }.addOnFailureListener{
+                Timber.e("firebase Error getting data $it")
+            }
+        }.addOnFailureListener{
+            Timber.e("firebase Error getting data $it")
+        }
+    }
 
-        val userDonations = database.child("user-donations").child(userid)
-        val allDonations = database.child("donations")
+    fun updateRosterImage(player: PlayerModel, imageUri: String) {
+        database.child("roster").child(player.teamID).child(player.id).get().addOnSuccessListener {
 
-        userDonations.addListenerForSingleValueEvent(
-            object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {}
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    snapshot.children.forEach {
-                        //Update Users imageUri
-                        it.ref.child("profilepic").setValue(imageUri)
-                        //Update all donations that match 'it'
-//                        val donation = it.getValue(DonationModel::class.java)
-//                        allDonations.child(donation!!.uid!!)
-//                            .child("profilepic").setValue(imageUri)
-                    }
-                }
-            })
+        }.addOnFailureListener{
+            Timber.e("firebase Error getting data $it")
+        }
     }
 }

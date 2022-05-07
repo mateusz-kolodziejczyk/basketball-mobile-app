@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
@@ -25,6 +27,8 @@ import org.mk.basketballmanager.enums.Position
 import org.mk.basketballmanager.fragments.main.UpdatePlayerFragment
 import org.mk.basketballmanager.helpers.showImagePicker
 import org.mk.basketballmanager.models.PlayerModel
+import org.mk.basketballmanager.ui.auth.LoginFragmentDirections
+import org.mk.basketballmanager.ui.players.PlayerListDirections
 import timber.log.Timber
 
 class AddPlayerFragment : Fragment() {
@@ -32,8 +36,9 @@ class AddPlayerFragment : Fragment() {
     lateinit var binding: AddPlayerFragmentBinding
     private val addPlayerViewModel: AddPlayerViewModel by activityViewModels()
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    var imageURI: Uri = Uri.EMPTY
     var selectedPosition: Position = Position.None
+    private val positions = Position.values()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -41,35 +46,28 @@ class AddPlayerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         registerImagePickerCallback()
         // Inflate the layout for this fragment
         binding = AddPlayerFragmentBinding.inflate(inflater, container, false)
         addPlayerViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
                 status -> status?.let { render(status) }
         })
-        return binding.root
-    }
 
-    private fun render(status: Boolean) {
-        when (status) {
-            true -> {
-                view?.let {
-                    findNavController().popBackStack()
-                }
+        // Observe changes to viewmodel to update image
+        addPlayerViewModel.observablePlayer.observe(viewLifecycleOwner){ player ->
+            render()
+            if(player.image.isNotEmpty()){
+                Picasso.get()
+                    .load(player.image)
+                    .into(binding.image)
             }
-            false -> Toast.makeText(context,getString(R.string.error_add_player), Toast.LENGTH_LONG).show()
+            binding.positionSpinner.setSelection(positions.indexOf(player.position))
         }
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val activity = activity as MainActivity
-        // Set action bar title
-
-        activity.setActionBarTitle("Add Player")
-        val positions = Position.values()
         // Code from https://stackoverflow.com/a/21169383
         // This code allows using an enum for a spinner
+
         val positionAdapter: ArrayAdapter<Position>? =
             this.context?.let { ArrayAdapter<Position>(it, R.layout.position_spinner_text, positions) }
 
@@ -77,44 +75,60 @@ class AddPlayerFragment : Fragment() {
         userSpinner.adapter = positionAdapter
         userSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
+                parent: AdapterView<*>?,
+                view: View?,
                 position: Int,
                 id: Long
             ) {
-                selectedPosition = parent.selectedItem as Position
+                addPlayerViewModel.updatePosition(parent?.selectedItem as Position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+        return binding.root
+    }
+
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                    // Pop back and clear player viewmodel
+                    addPlayerViewModel.reset()
+                    // findNavController().popBackStack()
+                    navigateToPlayerList()
+                }
+            }
+            false -> Toast.makeText(context,getString(R.string.error_add_player), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.buttonAdd.setOnClickListener { currentView ->
-            val newPlayer = PlayerModel(
-                name = binding.name.text.toString(),
-                position = selectedPosition,
-            )
-           if(newPlayer.name.isEmpty()){
+           if(binding.name.text.toString().isEmpty()){
                 Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
                     .show()
             }
             else{
-                addPlayerViewModel.addPlayer(newPlayer)
-                navigateToPlayerList()
+                addPlayerViewModel.addPlayer()
             }
         }
-        binding.buttonPickImage.setOnClickListener { currentView ->
+        binding.buttonPickImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
     }
-    private fun navigateToPlayerList(){
+
+    private fun render() {
+        binding.addPlayerVM = addPlayerViewModel
+        Timber.i("binding.addPlayerVM == ${binding.addPlayerVM}")
     }
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            UpdatePlayerFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
+    private fun navigateToPlayerList(){
+        val action = AddPlayerFragmentDirections.actionAddPlayerFragmentToPlayerList()
+        NavHostFragment.findNavController(this).navigate(action)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
     private fun registerImagePickerCallback() {
         imageIntentLauncher =
@@ -124,10 +138,9 @@ class AddPlayerFragment : Fragment() {
                     AppCompatActivity.RESULT_OK -> {
                         if (result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
-                            imageURI = result.data!!.data!!
-                            Picasso.get()
-                                .load(imageURI)
-                                .into(binding.image)
+                            val image = result.data!!.data!!.toString()
+                            addPlayerViewModel.updateImage(image)
+                            Timber.i("${image}")
                         } // end of if
                     }
                     AppCompatActivity.RESULT_CANCELED -> { } else -> { }

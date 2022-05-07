@@ -13,9 +13,6 @@
             android:id="@+id/action_teamHomeFragment_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment" />
         <action
-            android:id="@+id/action_teamHomeFragment_to_addPlayerFragment"
-            app:destination="@id/addPlayerFragment" />
-        <action
             android:id="@+id/action_teamHomeFragment_to_rosterFragment"
             app:destination="@id/rosterFragment" />
         <action
@@ -68,6 +65,9 @@
         <action
             android:id="@+id/action_playerList_to_playerDetailFragment"
             app:destination="@id/playerDetailFragment" />
+        <action
+            android:id="@+id/action_playerList_to_addPlayerFragment"
+            app:destination="@id/addPlayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPlayerFragment"
@@ -75,8 +75,8 @@
         android:label="Add Player"
         tools:layout="@layout/add_player_fragment" >
         <action
-            android:id="@+id/action_addPlayerFragment_to_teamHomeFragment"
-            app:destination="@id/teamHomeFragment" />
+            android:id="@+id/action_addPlayerFragment_to_playerList"
+            app:destination="@id/playerList" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
