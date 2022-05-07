@@ -25,4 +25,29 @@ class FreeAgentListViewModel : ViewModel() {
             Timber.i("FreeAgent load() error: ${e.message}")
         }
     }
+
+    fun delete(id: String, player: PlayerModel) {
+        // Return if team id is not empty.
+        // This should not happen, but this guards against it
+        if(player.teamID.isNotEmpty()){
+            return
+        }
+        try{
+            FirebaseDBManager.deletePlayer(id)
+            Timber.i("Playre Delete() success")
+        }
+        catch(e: Exception){
+            Timber.i("Players Delete() error: ${e.message}")
+        }
+    }
+
+    fun addToRoster(userID: String, player: PlayerModel) {
+        try{
+            FirebaseDBManager.addPlayerToRoster(userID, player)
+            Timber.i("Player Roster Add() success: $player")
+        }
+        catch(e: Exception){
+            Timber.i("Players Delete() error: ${e.message}")
+        }
+    }
 }

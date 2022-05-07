@@ -16,4 +16,6 @@
     <color name="grey_100">#2196F3</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_500">#9E9E9E</color>
+    <color name="swipe_delete">#AB1111</color>
+    <color name="swipe_add">#23CACA</color>
 </resources>

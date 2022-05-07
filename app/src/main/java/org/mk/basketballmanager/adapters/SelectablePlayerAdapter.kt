@@ -52,11 +52,7 @@ class SelectablePlayerAdapter(private var players: ArrayList<PlayerModel>,
                 binding.position.text = player.position.toString()
                 val context = binding.root.context
                 // Change color if its activated, or not.
-                if(isActivated){
-                    binding.root.setCardBackgroundColor(ContextCompat.getColor(context, R.color.selected_background))
-                }else{
-                    binding.root.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white))
-                }
+
 
                 binding.root.setOnClickListener {
                     //selectedTrackID = player.id

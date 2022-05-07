@@ -3,18 +3,17 @@ package org.mk.basketballmanager.utils
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import org.mk.basketballmanager.R
 
-abstract class SwipeToEditCallback(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+abstract class SwipeRightCallback(context: Context, private val icon: Drawable, private val backgroundColor: Int) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
-    private val editIcon = ContextCompat.getDrawable(context, R.drawable.ic_swipe_edit)
-    private val intrinsicWidth = editIcon?.intrinsicWidth
-    private val intrinsicHeight = editIcon?.intrinsicHeight
+    private val intrinsicWidth = icon.intrinsicWidth
+    private val intrinsicHeight = icon.intrinsicHeight
     private val background = ColorDrawable()
-    private val backgroundColor = Color.parseColor("#2196F3")
     private val clearPaint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
@@ -53,15 +52,15 @@ abstract class SwipeToEditCallback(context: Context) : ItemTouchHelper.SimpleCal
         background.draw(c)
 
         // Calculate position of Edit icon
-        val editIconTop = itemView.top + (itemHeight - intrinsicHeight!!) / 2
+        val editIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
         val editIconMargin = (itemHeight - intrinsicHeight) / 2
-        val editIconLeft = itemView.right - editIconMargin - intrinsicWidth!! - 810
+        val editIconLeft = itemView.right - editIconMargin - intrinsicWidth - 810
         val editIconRight = itemView.right - editIconMargin - 810
         val editIconBottom = editIconTop + intrinsicHeight
 
         // Draw the edit icon
-        editIcon?.setBounds(editIconLeft, editIconTop, editIconRight, editIconBottom)
-        editIcon?.draw(c)
+        icon.setBounds(editIconLeft, editIconTop, editIconRight, editIconBottom)
+        icon.draw(c)
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }

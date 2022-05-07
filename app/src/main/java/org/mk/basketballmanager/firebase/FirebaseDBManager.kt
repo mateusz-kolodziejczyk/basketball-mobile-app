@@ -125,6 +125,28 @@ object FirebaseDBManager : BasketballManagerStore {
 
     }
 
+    override fun deletePlayer(id: String) {
+        // Only allow deletion of free agents
+        // As multiple users can use the app, first make sure the existing player has no team id
+        // Then on success delete the player
+        database.child("players").child(id).get().addOnSuccessListener { snapshot ->
+            val player = snapshot.getValue(PlayerModel::class.java)
+            player?.let {
+                if(it.teamID.isNotEmpty()){
+                    Timber.e("Cannot delete player as the player is in a team")
+                    return@addOnSuccessListener
+                }
+                val childDelete: MutableMap<String, Any?> = HashMap()
+                childDelete["/players/$id"] = null
+                database.updateChildren(childDelete)
+            }
+
+        }.addOnFailureListener{
+            Timber.e("firebase Error getting data $it")
+        }
+
+    }
+
     override fun getRoster(userID: String, roster: MutableLiveData<List<PlayerModel>>) {
         // Get all players from the userid roster.
         database.child("rosters").child(userID).get().addOnSuccessListener { snapshot ->
@@ -138,7 +160,7 @@ object FirebaseDBManager : BasketballManagerStore {
         }
     }
 
-    override fun addPlayerToRoster(userID: String, team: TeamModel, player: PlayerModel) {
+    override fun addPlayerToRoster(userID: String, player: PlayerModel) {
         // Add userid to player object
         player.teamID = userID
         val values = player.toMap()

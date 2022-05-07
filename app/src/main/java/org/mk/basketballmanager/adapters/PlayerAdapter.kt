@@ -68,8 +68,9 @@ class PlayerAdapter(private var players: ArrayList<PlayerModel>,
     inner class MainHolder(private val binding : CardPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(player: PlayerModel, onClickFunction: (PlayerModel) -> Unit) {
-            binding.name.text = player.name
-            binding.position.text = player.position.toString()
+            binding.root.tag = player
+            binding.player = player
+
             binding.root.setOnClickListener { onClickFunction(player) }
             if(player.image.isNotEmpty()){
                 Picasso.get()

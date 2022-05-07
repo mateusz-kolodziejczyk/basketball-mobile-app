@@ -3,18 +3,17 @@ package org.mk.basketballmanager.utils
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import org.mk.basketballmanager.R
 
-abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+abstract class SwipeLeftCallback(context: Context, private val icon: Drawable, private val backgroundColor: Int) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_swipe_delete)
-    private val intrinsicWidth = deleteIcon?.intrinsicWidth
-    private val intrinsicHeight = deleteIcon?.intrinsicHeight
+    private val intrinsicWidth = icon.intrinsicWidth
+    private val intrinsicHeight = icon.intrinsicHeight
     private val background = ColorDrawable()
-    private val backgroundColor = Color.parseColor("#f44336")
     private val clearPaint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
@@ -53,16 +52,16 @@ abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleC
         background.draw(c)
 
         // Calculate position of delete icon
-        val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight!!) / 2
+        val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
         val deleteIconMargin = (itemHeight - intrinsicHeight) / 2
-        val deleteIconLeft = itemView.right - deleteIconMargin - intrinsicWidth!!
+        val deleteIconLeft = itemView.right - deleteIconMargin - intrinsicWidth
         val deleteIconRight = itemView.right - deleteIconMargin
         val deleteIconBottom = deleteIconTop + intrinsicHeight
 
 
         // Draw the delete icon
-        deleteIcon?.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
-        deleteIcon?.draw(c)
+        icon.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
+        icon.draw(c)
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }

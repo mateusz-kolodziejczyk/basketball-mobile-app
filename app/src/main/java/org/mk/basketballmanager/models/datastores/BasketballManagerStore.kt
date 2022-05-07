@@ -26,9 +26,10 @@ interface BasketballManagerStore {
     fun findPlayerByID(id: String, player: MutableLiveData<PlayerModel>)
     fun createPlayer(player: PlayerModel)
     fun updatePlayer(id: String, player: PlayerModel)
+    fun deletePlayer(id: String)
 
     // Roster
     fun getRoster(userID: String, roster: MutableLiveData<List<PlayerModel>>)
-    fun addPlayerToRoster(userID: String, team: TeamModel, player: PlayerModel)
+    fun addPlayerToRoster(userID: String, player: PlayerModel)
     fun removePlayerFromRoster(userID: String, team: TeamModel, player: PlayerModel)
 }

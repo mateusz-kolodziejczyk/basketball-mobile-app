@@ -63,5 +63,8 @@
     <string name="loading_players">Loading Players</string>
     <string name="loading_player">Loading Player</string>
     <string name="loading_team">Loading Team</string>
+    <string name="deleting_player">Deleting Player</string>
+    <string name="adding_player">Adding Player</string>
+    <string name="adding_player_roster">Adding to Roster</string>
 
 </resources>
