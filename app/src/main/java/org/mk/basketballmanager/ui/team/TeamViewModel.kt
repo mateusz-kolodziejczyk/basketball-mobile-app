@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import org.mk.basketballmanager.firebase.FirebaseDBManager
+import org.mk.basketballmanager.firebase.FirebaseImageManager
 import org.mk.basketballmanager.models.TeamModel
 import timber.log.Timber
 
@@ -31,6 +32,12 @@ class TeamViewModel : ViewModel() {
             Timber.i("Team create() error: ${e.message}")
         }
     }
+    fun updateImage(image: String){
+        team.value?.let {
+            it.image = image
+            team.value = it
+        }
+    }
     fun getTeam(){
         try{
             liveFirebaseUser.value?.let {
@@ -49,6 +56,7 @@ class TeamViewModel : ViewModel() {
         try{
             liveFirebaseUser.value?.let {
                 FirebaseDBManager.updateTeam(it.uid, team)
+                FirebaseImageManager.updateTeamImage(team)
                 Timber.i("Team Detail update() success: $team")
             } ?: run{
                 Timber.i("Team Detail update() error: user id is null")

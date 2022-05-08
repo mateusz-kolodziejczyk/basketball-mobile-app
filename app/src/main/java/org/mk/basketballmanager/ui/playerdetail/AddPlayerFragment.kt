@@ -98,7 +98,7 @@ class AddPlayerFragment : Fragment() {
                     navigateToPlayerList()
                 }
             }
-            false -> Toast.makeText(context,getString(R.string.error_add_player), Toast.LENGTH_LONG).show()
+            false -> Timber.i("status is false")
         }
     }
 

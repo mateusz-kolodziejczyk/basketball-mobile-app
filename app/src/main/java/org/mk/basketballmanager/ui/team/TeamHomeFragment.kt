@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.ui.auth.LoggedInViewModel
 import org.mk.basketballmanager.databinding.TeamHomeFragmentBinding
@@ -36,7 +37,12 @@ class TeamHomeFragment : Fragment() {
         teamViewModel.observableTeam.observe(viewLifecycleOwner, Observer { team ->
             team?.let {
                 hideLoader(loader)
-                binding.name.text = it.name
+                binding.teamvm = teamViewModel
+                if(it.image.isNotEmpty()){
+                    Picasso.get()
+                        .load(it.image)
+                        .into(binding.image)
+                }
             }
         })
         return binding.root

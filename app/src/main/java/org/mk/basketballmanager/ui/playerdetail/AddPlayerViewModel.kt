@@ -23,6 +23,7 @@ class AddPlayerViewModel : ViewModel() {
 
     fun reset(){
         player.value = PlayerModel()
+        status.value = false
     }
     fun addPlayer() {
         status.value = try {
@@ -30,7 +31,7 @@ class AddPlayerViewModel : ViewModel() {
                 val res = FirebaseDBManager.createPlayer(it)
                 // Only upload image if creating player was successful
                 if(res){
-                    FirebaseImageManager.updatePlayerImage(it, true)
+                    FirebaseImageManager.updatePlayerImage(it)
                 }
                 res
             } ?: run{

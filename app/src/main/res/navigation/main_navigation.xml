@@ -43,7 +43,9 @@
         tools:layout="@layout/player_detail_fragment" >
         <action
             android:id="@+id/action_playerDetailFragment_to_rosterFragment"
-            app:destination="@id/rosterFragment" />
+            app:destination="@id/rosterFragment"
+            app:popUpTo="@id/rosterFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="id"
             app:argType="string" />
@@ -67,7 +69,9 @@
             app:destination="@id/playerDetailFragment" />
         <action
             android:id="@+id/action_playerList_to_addPlayerFragment"
-            app:destination="@id/addPlayerFragment" />
+            app:destination="@id/addPlayerFragment"
+            app:popUpTo="@id/addPlayerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addPlayerFragment"
@@ -76,7 +80,9 @@
         tools:layout="@layout/add_player_fragment" >
         <action
             android:id="@+id/action_addPlayerFragment_to_playerList"
-            app:destination="@id/playerList" />
+            app:destination="@id/playerList"
+            app:popUpTo="@id/addPlayerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"

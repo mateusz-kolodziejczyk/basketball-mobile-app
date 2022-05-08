@@ -78,6 +78,7 @@
     <string name="light_mode">Light Mode</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="hint_country">Country</string>
+    <string name="team_image">Team Image</string>
 
 
 </resources>

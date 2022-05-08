@@ -27,7 +27,6 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundColor="@android:color/transparent"
                 android:background="@android:color/transparent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="clear_text"
                 app:endIconDrawable="@drawable/ic_circle_x"
                 android:layout_marginHorizontal="15dp"
@@ -41,7 +40,6 @@
                     android:text="@={addPlayerVM.observablePlayer.name}"
                     android:hint="@string/hint_playerName"
                     android:imeOptions="actionDone">
-
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
@@ -59,7 +57,11 @@
                     android:text="@string/position_textview"
                     tools:text="Position" />
                 <Spinner
+                    android:background="@color/white"
+                    android:popupBackground="@color/white"
                     android:id="@+id/positionSpinner"
+                    android:spinnerMode="dropdown"
+                    android:dropDownSelector="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp">

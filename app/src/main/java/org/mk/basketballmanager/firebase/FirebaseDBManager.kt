@@ -11,7 +11,20 @@ object FirebaseDBManager : BasketballManagerStore {
 
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
     override fun findAllTeams(teamsList: MutableLiveData<List<TeamModel>>) {
-        TODO("Not yet implemented")
+        database.child("teams").get().addOnSuccessListener { snapshot ->
+            val localList = ArrayList<TeamModel>()
+            val children = snapshot.children
+            children.forEach { childSnapshot ->
+                val team = childSnapshot.getValue(TeamModel::class.java)
+                team?.let{
+                    localList.add(it)
+                }
+
+            }
+            teamsList.value = localList
+        }.addOnFailureListener{
+            Timber.e("firebase Error getting data $it")
+        }
     }
 
     override fun findTeamByID(userID: String, team: MutableLiveData<TeamModel>) {
@@ -21,7 +34,7 @@ object FirebaseDBManager : BasketballManagerStore {
 
             // If null, create the team
             if (team.value == null) {
-                val teamModel = TeamModel(userID = userID)
+                val teamModel = TeamModel(id = userID)
                 createTeam(userID, teamModel)
                 team.value = teamModel
             }
@@ -33,7 +46,7 @@ object FirebaseDBManager : BasketballManagerStore {
 
     override fun createTeam(userID: String, team: TeamModel) {
         Timber.i("Firebase DB Reference : $database")
-        team.userID = userID
+        team.id = userID
         val teamValues = team.toMap()
 
         val childAdd = HashMap<String, Any>()
@@ -206,6 +219,13 @@ object FirebaseDBManager : BasketballManagerStore {
         }
     }
 
+    fun updateTeamImage(team: TeamModel, imageUri: String){
+        database.child("teams").child(team.id).get().addOnSuccessListener { playerSnapshot ->
+            playerSnapshot.child("image").ref.setValue(imageUri)
+        }.addOnFailureListener{
+            Timber.e("firebase Error getting data $it")
+        }
+    }
     fun updateRosterImage(player: PlayerModel, imageUri: String) {
         database.child("roster").child(player.teamID).child(player.id).get().addOnSuccessListener {
 

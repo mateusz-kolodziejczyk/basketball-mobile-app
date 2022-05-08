@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import org.mk.basketballmanager.enums.Position
 import org.mk.basketballmanager.firebase.FirebaseDBManager
+import org.mk.basketballmanager.firebase.FirebaseImageManager
 import org.mk.basketballmanager.models.PlayerModel
 import timber.log.Timber
 
@@ -31,6 +32,7 @@ class PlayerDetailViewModel : ViewModel() {
         try{
             player.value?.let {
                 FirebaseDBManager.updatePlayer(it)
+                FirebaseImageManager.updatePlayerImage(it)
                 Timber.i("Team Detail update() success: ${player.value}")
             }
         }

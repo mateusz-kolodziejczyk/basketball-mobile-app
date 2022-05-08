@@ -10,7 +10,7 @@ import java.util.*
 @IgnoreExtraProperties
 @Parcelize
 data class PlayerModel(
-    var id: String = "",
+    override var id: String = "",
     var teamID: String = "",
     var name: String = "",
     var position: Position = Position.None,
@@ -19,7 +19,7 @@ data class PlayerModel(
     override var region: String = "",
     override var country: String = ""
 
-) : Parcelable, Addressable
+) : Parcelable, Addressable, Identifiable
 {
     @Exclude
     fun toMap(): Map<String, Any?> {

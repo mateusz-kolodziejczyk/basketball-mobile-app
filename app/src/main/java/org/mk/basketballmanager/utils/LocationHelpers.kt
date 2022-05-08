@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import org.mk.basketballmanager.models.Addressable
 import timber.log.Timber
 
 const val REQUEST_PERMISSIONS_REQUEST_CODE = 34
@@ -32,4 +33,22 @@ fun isPermissionGranted(code: Int, grantResults: IntArray): Boolean {
         }
     }
     return permissionGranted
+}
+
+fun getAddress(addressable: Addressable) : String{
+    var s = ""
+    val divider = ", "
+    if(addressable.city.isNotEmpty()){
+        s += addressable.city
+        s += divider
+    }
+    if(addressable.region.isNotEmpty()){
+        s += addressable.region
+        s += divider
+    }
+    if(addressable.country.isNotEmpty()){
+        s+= addressable.country
+    }
+    // Remove trailing ", "
+    return s.removeSuffix(divider)
 }

@@ -5,30 +5,134 @@
     <data>
         <variable
             name="teamvm"
-            type="org.mk.basketballmanager.ui.team.TeamViewModel" />
+            type="org.mk.basketballmanager.ui.team.TeamDetailViewModel" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.team.TeamDetailFragment">
-    <EditText
-        android:id="@+id/name"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_margin="8dp"
-        android:autofillHints=""
-        android:hint="@string/hint_teamName"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="8dp"
-        android:layout_marginBottom="30dp"
-        android:textSize="14sp"
-        android:text="@={teamvm.observableTeam.name}"
-        app:layout_constraintTop_toTopOf="parent"
-        android:imeOptions="actionDone"
-        />
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
+        app:endIconMode="clear_text"
+        app:endIconDrawable="@drawable/ic_circle_x"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="30dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@={teamvm.observableTeam.name}"
+            android:hint="@string/hint_playerName"
+            android:imeOptions="actionDone">
+
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@android:color/transparent"
+            android:background="@android:color/transparent"
+            app:endIconMode="clear_text"
+            app:endIconDrawable="@drawable/ic_circle_x"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/city"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_margin="8dp"
+                android:hint="@string/hint_city"
+                android:text="@={teamvm.observableTeam.city}"
+                android:inputType="text"
+                android:maxLines="1"
+                android:imeOptions="actionDone" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@android:color/transparent"
+            android:background="@android:color/transparent"
+            app:endIconMode="clear_text"
+            app:endIconDrawable="@drawable/ic_circle_x"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/region"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_margin="8dp"
+                android:hint="@string/hint_region"
+                android:text="@={teamvm.observableTeam.region}"
+                android:inputType="text"
+                android:maxLines="1"
+                android:imeOptions="actionDone" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@android:color/transparent"
+        android:background="@android:color/transparent"
+        app:endIconMode="clear_text"
+        app:endIconDrawable="@drawable/ic_circle_x"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="20dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/country"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:hint="@string/hint_country"
+            android:text="@={teamvm.observableTeam.country}"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionDone" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/image"
+            android:contentDescription="@string/player_image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_team_photo_placeholder"
+            />
+        <Button
+            android:id="@+id/buttonPickImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginRight="20dp"
+            android:stateListAnimator="@null"
+            android:text="@string/pickImage"
+            android:textSize="18sp" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/update_button"
         android:layout_width="match_parent"
@@ -40,6 +144,5 @@
         android:text="@string/update"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/name"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 </layout>
