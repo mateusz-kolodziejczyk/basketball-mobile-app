@@ -136,11 +136,7 @@ class RosterFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_add -> {
-                navigateToAddPlayer()
-            }
-        }
+
         return super.onOptionsItemSelected(item)
     }
 

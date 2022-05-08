@@ -43,8 +43,10 @@ class TeamHomeFragment : Fragment() {
                         .load(it.image)
                         .into(binding.image)
                 }
+                checkSwipeRefresh()
             }
         })
+        setSwipeRefresh()
         return binding.root
     }
 
@@ -59,7 +61,18 @@ class TeamHomeFragment : Fragment() {
             }
         })
     }
+    private fun setSwipeRefresh() {
+        binding.swiperefresh.setOnRefreshListener {
+            binding.swiperefresh.isRefreshing = true
+            showLoader(loader, resources.getString(R.string.loading_players))
+            teamViewModel.getTeam()
+        }
+    }
 
+    private fun checkSwipeRefresh() {
+        if (binding.swiperefresh.isRefreshing)
+            binding.swiperefresh.isRefreshing = false
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(TeamViewModel::class.java)

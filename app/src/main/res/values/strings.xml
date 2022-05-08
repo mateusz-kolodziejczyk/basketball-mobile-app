@@ -79,6 +79,8 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="hint_country">Country</string>
     <string name="team_image">Team Image</string>
+    <string name="toggle_mode">Toggle Theme</string>
+    <string name="email">email</string>
 
 
 </resources>

@@ -62,8 +62,6 @@ fun readImageUri(resultCode: Int, data: Intent?): Uri? {
 
 fun customTransformation() : Transformation =
     RoundedTransformationBuilder()
-        .borderColor(Color.WHITE)
-        .borderWidthDp(2F)
         .cornerRadiusDp(35F)
         .oval(false)
         .build()

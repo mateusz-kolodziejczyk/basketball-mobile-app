@@ -14,7 +14,7 @@
             android:title="@string/menu_roster" />
         <item
             android:id="@+id/teamDetailFragment"
-            android:icon="@drawable/ic_baseline_sports_basketball_24"
+            android:icon="@drawable/ic_baseline_update_24"
             android:title="@string/updateTeam" />
         <item
             android:id="@+id/playerList"
@@ -22,25 +22,25 @@
             android:title="@string/allPlayers" />
         <item
             android:id="@+id/freeAgentListFragment"
-            android:icon="@drawable/ic_baseline_list_24"
+            android:icon="@drawable/ic_baseline_filter_list_24"
             android:title="@string/freeAgents" />
 
         <item
             android:id="@+id/addPlayerFragment"
-            android:icon="@drawable/ic_baseline_sports_basketball_24"
+            android:icon="@drawable/ic_baseline_person_add_24"
             android:title="@string/addNewPlayer" />
         <item
             android:id="@+id/mapsFragment"
-            android:icon="@drawable/ic_baseline_sports_basketball_24"
+            android:icon="@drawable/ic_baseline_map_24"
             android:title="@string/menu_map" />
     </group>
     <item android:title="@string/options">
         <menu>
             <item
                 android:id="@+id/nightModeToggle"
-                android:icon="@drawable/ic_light_mode"
+                android:icon="@drawable/ic_switch_mode"
                 android:onClick="toggleNightMode"
-                android:title="@string/light_mode" />
+                android:title="@string/toggle_mode" />
         </menu>
     </item>
     <item android:title="@string/access_control">

@@ -16,14 +16,15 @@ import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.ui.auth.LoggedInViewModel
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
-import org.mk.basketballmanager.app.MainApp
 import org.mk.basketballmanager.databinding.TeamDetailFragmentBinding
 import org.mk.basketballmanager.helpers.showImagePicker
 import timber.log.Timber
 
 class TeamDetailFragment : Fragment() {
 
-    private val teamViewModel: TeamDetailViewModel by activityViewModels()
+    private val teamDetailViewModel: TeamDetailViewModel by activityViewModels()
+    private val teamViewModel: TeamViewModel by activityViewModels()
+
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private var keepData = false
@@ -41,7 +42,7 @@ class TeamDetailFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = TeamDetailFragmentBinding.inflate(inflater, container, false)
-        teamViewModel.observableTeam.observe(viewLifecycleOwner, Observer {
+        teamDetailViewModel.observableTeam.observe(viewLifecycleOwner, Observer {
             render()
             if(it.image.isNotEmpty()){
                 Picasso.get()
@@ -55,13 +56,10 @@ class TeamDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val activity = activity as MainActivity
 
-        val app = activity.application as MainApp
-        // Set action bar title
-
-        activity.setActionBarTitle("Update Team Info")
         binding.updateButton.text = resources.getString(R.string.update)
         binding.updateButton.setOnClickListener { view ->
-            teamViewModel.updateTeam()
+            teamDetailViewModel.updateTeam()
+            teamViewModel.getTeam()
             findNavController().navigateUp()
         }
         binding.buttonPickImage.setOnClickListener {
@@ -70,7 +68,7 @@ class TeamDetailFragment : Fragment() {
     }
 
     private fun render() {
-        binding.teamvm = teamViewModel
+        binding.teamvm = teamDetailViewModel
         Timber.i("binding.teamvm == ${binding.teamvm}")
     }
     private fun registerImagePickerCallback() {
@@ -82,7 +80,7 @@ class TeamDetailFragment : Fragment() {
                         if (result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
                             val image = result.data!!.data!!.toString()
-                            teamViewModel.updateImage(image)
+                            teamDetailViewModel.updateImage(image)
                             keepData = true
                             Timber.i("${image}")
                         } // end of if
@@ -96,7 +94,7 @@ class TeamDetailFragment : Fragment() {
         super.onResume()
         // Keepdata is only changed to true if image was picked
         if(!keepData){
-            teamViewModel.getTeam(loggedInViewModel.liveFirebaseUser.value!!.uid)
+            teamDetailViewModel.getTeam(loggedInViewModel.liveFirebaseUser.value!!.uid)
         }
         keepData = false
     }

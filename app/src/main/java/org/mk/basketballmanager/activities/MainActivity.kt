@@ -13,16 +13,23 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.squareup.picasso.Picasso
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.databinding.ActivityMainBinding
+import org.mk.basketballmanager.databinding.NavHeaderBinding
 import org.mk.basketballmanager.ui.auth.LoggedInViewModel
+import org.mk.basketballmanager.ui.team.TeamViewModel
+import org.mk.basketballmanager.utils.customTransformation
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     lateinit var mainBinding : ActivityMainBinding
     lateinit var navController: NavController
+    private lateinit var navHeaderBinding: NavHeaderBinding
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var loggedInViewModel: LoggedInViewModel
+    private lateinit var teamViewModel: TeamViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
         drawerLayout = mainBinding.drawerLayout
-
+        initNavHeader()
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -75,6 +82,36 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        teamViewModel = ViewModelProvider(this)[TeamViewModel::class.java]
+
+        // Modify navheader based on team data
+        teamViewModel.observableTeam.observe(this, Observer {
+            if(it == null){
+                return@Observer
+            }
+            navHeaderBinding.teamName.text = it.name
+            if(it.image.isNotEmpty()){
+                Picasso.get()
+                    .load(it.image)
+                    .resize(50, 50)
+                    .transform(customTransformation())
+                    .into(navHeaderBinding.navHeaderImage)
+            }
+        })
+
+        loggedInViewModel.liveFirebaseUser.observe(this, Observer {
+            it.email?.let { email ->
+                navHeaderBinding.userEmail.text = email
+            }
+        })
+
+
+    }
+
+    private fun initNavHeader() {
+        Timber.i("DX Init Nav Header")
+        val headerView = mainBinding.navView.getHeaderView(0)
+        navHeaderBinding = NavHeaderBinding.bind(headerView)
     }
     fun signOut(item: MenuItem) {
         loggedInViewModel.logOut(applicationContext)
