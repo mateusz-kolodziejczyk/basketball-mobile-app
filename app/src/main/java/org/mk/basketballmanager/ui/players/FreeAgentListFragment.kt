@@ -2,7 +2,6 @@ package org.mk.basketballmanager.ui.players
 
 import android.app.AlertDialog
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
@@ -14,26 +13,25 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import org.mk.basketballmanager.R
-import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.adapters.PlayerAdapter
 import org.mk.basketballmanager.databinding.FragmentListBinding
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.ui.auth.LoggedInViewModel
 import org.mk.basketballmanager.ui.auth.LoginFragment
+import org.mk.basketballmanager.ui.team.TeamViewModel
 import org.mk.basketballmanager.utils.*
 
 class FreeAgentListFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
     private val freeAgentListViewModel: FreeAgentListViewModel by activityViewModels()
     private val loggedInViewModel: LoggedInViewModel by activityViewModels()
+    private val teamViewModel: TeamViewModel by activityViewModels()
     lateinit var loader : AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
     }
 
     override fun onCreateView(
@@ -68,7 +66,7 @@ class FreeAgentListFragment : Fragment() {
                     player.id,
                     player
                 )
-                hideLoader(loader)
+                freeAgentListViewModel.load()
             }
         }
         val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
@@ -80,19 +78,18 @@ class FreeAgentListFragment : Fragment() {
         ) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // Only add to roster if logged in
-                loggedInViewModel.liveFirebaseUser.value?.let {
+                teamViewModel.observableTeam.value?.let {
                     showLoader(loader, resources.getString(R.string.adding_player_roster))
                     val adapter = binding.recyclerView.adapter as PlayerAdapter
                     adapter.removeAt(viewHolder.adapterPosition)
                     val player = viewHolder.itemView.tag as PlayerModel
                     freeAgentListViewModel.addToRoster(
-                        it.uid,
+                        it,
                         player
                     )
-                    hideLoader(loader)
+                    freeAgentListViewModel.load()
                 } ?: run{
                 }
-
             }
         }
         val itemTouchAddHelper = ItemTouchHelper(swipeEditHandler)
@@ -103,8 +100,6 @@ class FreeAgentListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(view.context)
-
-        val activity = activity as MainActivity
 
         // Set action bar title
         binding.recyclerView.layoutManager = layoutManager

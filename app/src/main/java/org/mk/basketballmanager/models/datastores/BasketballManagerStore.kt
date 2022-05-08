@@ -30,6 +30,6 @@ interface BasketballManagerStore {
 
     // Roster
     fun getRoster(userID: String, roster: MutableLiveData<List<PlayerModel>>)
-    fun addPlayerToRoster(userID: String, player: PlayerModel)
+    fun addPlayerToRoster(team: TeamModel, player: PlayerModel)
     fun removePlayerFromRoster(userID: String, player: PlayerModel)
 }

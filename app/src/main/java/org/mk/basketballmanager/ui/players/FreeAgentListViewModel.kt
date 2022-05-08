@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import org.mk.basketballmanager.firebase.FirebaseDBManager
 import org.mk.basketballmanager.firebase.FirebaseImageManager
 import org.mk.basketballmanager.models.PlayerModel
+import org.mk.basketballmanager.models.TeamModel
 import timber.log.Timber
 
 class FreeAgentListViewModel : ViewModel() {
@@ -43,9 +44,9 @@ class FreeAgentListViewModel : ViewModel() {
         }
     }
 
-    fun addToRoster(userID: String, player: PlayerModel) {
+    fun addToRoster(team: TeamModel, player: PlayerModel) {
         try{
-            FirebaseDBManager.addPlayerToRoster(userID, player)
+            FirebaseDBManager.addPlayerToRoster(team, player)
             Timber.i("Player Roster Add() success: $player")
         }
         catch(e: Exception){

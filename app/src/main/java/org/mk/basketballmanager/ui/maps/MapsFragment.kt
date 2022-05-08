@@ -1,6 +1,7 @@
 package org.mk.basketballmanager.ui.maps
 
 import android.app.AlertDialog
+import android.location.Address
 import android.location.Geocoder
 import androidx.fragment.app.Fragment
 
@@ -29,6 +30,7 @@ import org.mk.basketballmanager.utils.createLoader
 import org.mk.basketballmanager.utils.getAddress
 import org.mk.basketballmanager.utils.hideLoader
 import org.mk.basketballmanager.utils.showLoader
+import java.lang.Exception
 
 class MapsFragment : Fragment() {
 
@@ -49,8 +51,15 @@ class MapsFragment : Fragment() {
         // Attempt to geocode team, if succeeds set loc to it.
         teamViewModel.observableTeam.value?.let{
             val s = getAddress(it)
-            // Get location
-            val result = mapsViewModel.geocoder.getFromLocationName(s, 1)
+
+            var result:MutableList<Address> = ArrayList()
+            // Handle any errors that might occur, do not add marker if errors occur.
+            try{
+                result = mapsViewModel.geocoder.getFromLocationName(s, 1)
+            }
+            catch (e: Exception){
+                result.clear()
+            }
             if(result.isNotEmpty()) {
                 val address = result[0]
                 loc = LatLng(address.latitude, address.longitude)
@@ -101,8 +110,14 @@ class MapsFragment : Fragment() {
         playerList.forEach{ player ->
             // Try to get a location for player using their address, if there isn't one, don't add it.
             val s = getAddress(player)
-            // Get location
-            val result = mapsViewModel.geocoder.getFromLocationName(s, 1)
+            var result:MutableList<Address> = ArrayList()
+            // Handle any errors that might occur, do not add marker if errors occur.
+            try{
+                result = mapsViewModel.geocoder.getFromLocationName(s, 1)
+            }
+            catch (e: Exception){
+                result.clear()
+            }
             if(result.isNotEmpty()){
                 val address = result[0]
                 val longitude = address.longitude

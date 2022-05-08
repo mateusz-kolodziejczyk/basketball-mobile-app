@@ -65,7 +65,8 @@ class RosterFragment : Fragment() {
                     rosterViewModel.removePlayer(
                         player
                     )
-                    hideLoader(loader)
+                    rosterViewModel.load()
+
             }
         }
         val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)

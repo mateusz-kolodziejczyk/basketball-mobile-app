@@ -35,8 +35,8 @@
         <action
             android:id="@+id/action_rosterFragment_to_playerDetailFragment"
             app:destination="@id/playerDetailFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:exitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/fui_slide_in_right"
+                app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/playerDetailFragment"
@@ -60,8 +60,8 @@
         <action
             android:id="@+id/action_freeAgentListFragment_to_playerDetailFragment"
             app:destination="@id/playerDetailFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:exitAnim="@android:anim/slide_out_right" />
+                app:enterAnim="@anim/fui_slide_in_right"
+                app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/playerList"

@@ -15,6 +15,7 @@ data class PlayerModel(
     var name: String = "",
     var position: Position = Position.None,
     var image: String = "",
+    var teamImage: String = "",
     override var city: String = "",
     override var region: String = "",
     override var country: String = ""
@@ -29,6 +30,7 @@ data class PlayerModel(
             "name" to name,
             "position" to position,
             "image" to image,
+            "teamImage" to teamImage,
             "city" to city,
             "region" to region,
             "country" to country,

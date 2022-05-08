@@ -176,14 +176,15 @@ object FirebaseDBManager : BasketballManagerStore {
         }
     }
 
-    override fun addPlayerToRoster(userID: String, player: PlayerModel) {
+    override fun addPlayerToRoster(team: TeamModel, player: PlayerModel) {
         // Add userid to player object
-        player.teamID = userID
+        player.teamID = team.id
+        player.teamImage = team.image
         val values = player.toMap()
 
         val childUpdate: MutableMap<String, Any?> = HashMap()
         childUpdate["/players/${player.id}"] = values
-        childUpdate["/rosters/$userID/${player.id}"] = values
+        childUpdate["/rosters/${team.id}/${player.id}"] = values
 
         database.updateChildren(childUpdate)
 
@@ -192,6 +193,7 @@ object FirebaseDBManager : BasketballManagerStore {
     override fun removePlayerFromRoster(userID: String, player: PlayerModel) {
         // Remove userid from player
         player.teamID = ""
+        player.teamImage = ""
         val values = player.toMap()
 
         val childUpdate: MutableMap<String, Any?> = HashMap()
@@ -219,18 +221,22 @@ object FirebaseDBManager : BasketballManagerStore {
         }
     }
 
+    // When updating team image, also make sure to update all players on roster
     fun updateTeamImage(team: TeamModel, imageUri: String){
         database.child("teams").child(team.id).get().addOnSuccessListener { playerSnapshot ->
             playerSnapshot.child("image").ref.setValue(imageUri)
+            // After updating team image, update image on team roster
+            updateRosterImage(team, imageUri)
         }.addOnFailureListener{
             Timber.e("firebase Error getting data $it")
         }
     }
-    fun updateRosterImage(player: PlayerModel, imageUri: String) {
-        database.child("roster").child(player.teamID).child(player.id).get().addOnSuccessListener {
-
-        }.addOnFailureListener{
-            Timber.e("firebase Error getting data $it")
+    private fun updateRosterImage(team: TeamModel, imageUri: String) {
+        database.child("rosters").child(team.id).get().addOnSuccessListener { rosterSnapshot ->
+            val children = rosterSnapshot.children
+            children.forEach{
+                it.child("teamImage").ref.setValue(imageUri)
+            }
         }
     }
 }

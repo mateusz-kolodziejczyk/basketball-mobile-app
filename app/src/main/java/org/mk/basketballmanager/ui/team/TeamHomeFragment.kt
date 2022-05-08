@@ -64,7 +64,7 @@ class TeamHomeFragment : Fragment() {
     private fun setSwipeRefresh() {
         binding.swiperefresh.setOnRefreshListener {
             binding.swiperefresh.isRefreshing = true
-            showLoader(loader, resources.getString(R.string.loading_players))
+            showLoader(loader, resources.getString(R.string.loading_team))
             teamViewModel.getTeam()
         }
     }

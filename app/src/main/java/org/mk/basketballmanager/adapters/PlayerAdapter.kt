@@ -77,6 +77,11 @@ class PlayerAdapter(private var players: ArrayList<PlayerModel>,
                     .load(player.image)
                     .into(binding.image)
             }
+            if(player.teamImage.isNotEmpty()){
+                Picasso.get()
+                    .load(player.teamImage)
+                    .into(binding.teamImage)
+            }
         }
     }
 
