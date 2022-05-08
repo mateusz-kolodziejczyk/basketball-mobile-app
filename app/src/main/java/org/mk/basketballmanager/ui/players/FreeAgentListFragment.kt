@@ -153,7 +153,7 @@ class FreeAgentListFragment : Fragment() {
     }
 
     private val navigateToPlayerInfo = { player: PlayerModel ->
-        val action = PlayerListDirections.actionPlayerListToPlayerDetailFragment(player.id)
+        val action = FreeAgentListFragmentDirections.actionFreeAgentListFragmentToPlayerDetailFragment(player.id)
         findNavController().navigate(action)
     }
     private fun navigateToAddPlayer(){

@@ -34,7 +34,9 @@
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_rosterFragment_to_playerDetailFragment"
-            app:destination="@id/playerDetailFragment" />
+            app:destination="@id/playerDetailFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/playerDetailFragment"
@@ -57,7 +59,9 @@
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_freeAgentListFragment_to_playerDetailFragment"
-            app:destination="@id/playerDetailFragment" />
+            app:destination="@id/playerDetailFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/playerList"
@@ -66,7 +70,9 @@
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_playerList_to_playerDetailFragment"
-            app:destination="@id/playerDetailFragment" />
+            app:destination="@id/playerDetailFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_playerList_to_addPlayerFragment"
             app:destination="@id/addPlayerFragment"
@@ -81,6 +87,7 @@
         <action
             android:id="@+id/action_addPlayerFragment_to_playerList"
             app:destination="@id/playerList"
+            app:enterAnim="@android:anim/slide_in_left"
             app:popUpTo="@id/addPlayerFragment"
             app:popUpToInclusive="true" />
     </fragment>

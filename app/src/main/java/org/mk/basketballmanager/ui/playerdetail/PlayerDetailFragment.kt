@@ -33,7 +33,7 @@ class PlayerDetailFragment : Fragment() {
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     var selectedPosition: Position = Position.None
     private val positions = Position.values()
-
+    private var keepData = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -84,8 +84,7 @@ class PlayerDetailFragment : Fragment() {
         when (status) {
             true -> {
                 view?.let {
-                    // findNavController().popBackStack()
-                    navigateToPlayerList()
+                    findNavController().popBackStack()
                 }
             }
             false -> Toast.makeText(context,getString(R.string.error_add_player), Toast.LENGTH_LONG).show()
@@ -120,7 +119,10 @@ class PlayerDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        playerDetailViewModel.getPlayer(args.id)
+        if(!keepData){
+            playerDetailViewModel.getPlayer(args.id)
+        }
+        keepData = false
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -135,7 +137,8 @@ class PlayerDetailFragment : Fragment() {
                             Timber.i("Got Result ${result.data!!.data}")
                             val image = result.data!!.data!!.toString()
                             playerDetailViewModel.updateImage(image)
-                            Timber.i("${image}")
+                            keepData = true
+                            Timber.i("Image path: ${image}")
                         } // end of if
                     }
                     AppCompatActivity.RESULT_CANCELED -> { } else -> { }

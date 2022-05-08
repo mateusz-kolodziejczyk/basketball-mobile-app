@@ -128,7 +128,7 @@ class RosterFragment : Fragment() {
     }
 
     private val navigateToPlayerInfo = { player: PlayerModel ->
-        val action = PlayerListDirections.actionPlayerListToPlayerDetailFragment(player.id)
+        val action = RosterFragmentDirections.actionRosterFragmentToPlayerDetailFragment(player.id)
         findNavController().navigate(action)
     }
     private fun navigateToAddPlayer(){
