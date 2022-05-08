@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import org.mk.basketballmanager.R
 import org.mk.basketballmanager.models.PlayerModel
@@ -44,6 +46,12 @@ class MapsFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         mapsViewModel.map = googleMap
+        // If it's dark mode, set the map to the night style
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            context?.let {
+                mapsViewModel.map.setMapStyle(MapStyleOptions.loadRawResourceStyle(it, R.raw.mapstyle_night))
+            }
+        }
         mapsViewModel.map.clear()
         mapsViewModel.geocoder = Geocoder(context)
         var loc = LatLng(52.245696, -7.139102)

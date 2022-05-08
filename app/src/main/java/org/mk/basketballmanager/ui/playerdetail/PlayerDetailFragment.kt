@@ -95,8 +95,7 @@ class PlayerDetailFragment : Fragment() {
 
         binding.buttonUpdate.setOnClickListener { currentView ->
             if(binding.name.text.toString().isEmpty()){
-                Snackbar.make(currentView, R.string.error_no_name, Snackbar.LENGTH_LONG)
-                    .show()
+                binding.name.error = "Please enter a name"
             }
             else{
                 playerDetailViewModel.updatePlayer()

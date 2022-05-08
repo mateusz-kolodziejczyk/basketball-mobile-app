@@ -80,6 +80,7 @@ class TeamHomeFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        loader = createLoader(requireActivity())
         loader.dismiss()
     }
 
