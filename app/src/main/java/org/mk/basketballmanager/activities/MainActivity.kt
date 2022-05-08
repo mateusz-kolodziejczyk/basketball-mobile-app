@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -43,11 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
-//        intent.extras?.let {
-//            val username = MainActivityArgs.fromBundle(it).username
-//            i("Stuff")
-//        }
-
 
         val navView = mainBinding.navView
         //navView.setupWithNavController(navController)
@@ -73,9 +69,19 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         loggedInViewModel = ViewModelProvider(this)[LoggedInViewModel::class.java]
 
+        loggedInViewModel.loggedOut.observe(this, Observer {
+            if(it == true){
+                goToLogin()
+            }
+        })
+
     }
     fun signOut(item: MenuItem) {
-        loggedInViewModel.logOut()
+        loggedInViewModel.logOut(applicationContext)
+
+    }
+
+    fun goToLogin(){
         val intent = Intent(this, Login::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)

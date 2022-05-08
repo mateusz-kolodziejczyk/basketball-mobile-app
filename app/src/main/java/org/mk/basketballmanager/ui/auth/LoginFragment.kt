@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.SignInButton
@@ -30,6 +31,7 @@ import org.mk.basketballmanager.databinding.LoginFragmentBinding
 class LoginFragment : Fragment() {
     private lateinit var loginBinding: LoginFragmentBinding
     private lateinit var loginRegisterViewModel: LoginRegisterViewModel
+    private val loggedInViewModel: LoggedInViewModel by activityViewModels()
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
@@ -44,6 +46,7 @@ class LoginFragment : Fragment() {
             val user = FirebaseAuth.getInstance().currentUser
             user?.let {
                 loginRegisterViewModel.setUser(it)
+                loggedInViewModel.loggedOut.value = false
             }
         } else {
             // Sign in failed. If response is null the user canceled the
@@ -65,7 +68,10 @@ class LoginFragment : Fragment() {
             val signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
+                .setLogo(R.drawable.ic_logo)
+                .setTheme(R.style.Theme_BasketballManager)
                 .build()
+
             signInLauncher.launch(signInIntent)
         }
     }
@@ -80,28 +86,8 @@ class LoginFragment : Fragment() {
     ): View? {
         loginBinding = LoginFragmentBinding.inflate(inflater, container, false)
 
-        loginBinding.emailSignInButton.setOnClickListener {
-            signIn(
-                loginBinding.fieldEmail.text.toString(),
-                loginBinding.fieldPassword.text.toString()
-            )
-        }
-        loginBinding.emailCreateAccountButton.setOnClickListener {
-            createAccount(
-                loginBinding.fieldEmail.text.toString(),
-                loginBinding.fieldPassword.text.toString()
-            )
-        }
-
-        loginBinding.googleSignInButton.setSize(SignInButton.SIZE_WIDE)
-        loginBinding.googleSignInButton.setColorScheme(0)
-
-        loginBinding.googleSignInButton.setOnClickListener {
-            googleSignIn()
-        }
 
         setupFirebaseUICallback()
-        setupGoogleSignInCallback()
         return loginBinding.root
 
     }
@@ -142,24 +128,6 @@ class LoginFragment : Fragment() {
     }
 
 
-    private fun createAccount(email: String, password: String) {
-        Timber.d("createAccount:$email")
-        if (!validateForm()) {
-            return
-        }
-
-        loginRegisterViewModel.register(email, password)
-    }
-
-    private fun signIn(email: String, password: String) {
-        Timber.d("signIn:$email")
-        if (!validateForm()) {
-            return
-        }
-
-        loginRegisterViewModel.login(email, password)
-    }
-
     private fun checkStatus(error: Boolean) {
         if (error)
             Toast.makeText(
@@ -169,59 +137,5 @@ class LoginFragment : Fragment() {
             ).show()
     }
 
-    private fun validateForm(): Boolean {
-        var valid = true
 
-        val email = loginBinding.fieldEmail.text.toString()
-        if (TextUtils.isEmpty(email)) {
-            loginBinding.fieldEmail.error = "Required."
-            valid = false
-        } else {
-            loginBinding.fieldEmail.error = null
-        }
-
-        val password = loginBinding.fieldPassword.text.toString()
-        if (TextUtils.isEmpty(password)) {
-            loginBinding.fieldPassword.error = "Required."
-            valid = false
-        } else {
-            loginBinding.fieldPassword.error = null
-        }
-        return valid
-    }
-
-    private fun googleSignIn() {
-        val signInIntent = loginRegisterViewModel.firebaseAuthManager
-            .googleSignInClient.value!!.signInIntent
-
-        startForResult.launch(signInIntent)
-    }
-
-    private fun setupGoogleSignInCallback() {
-        startForResult =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                when (result.resultCode) {
-                    AppCompatActivity.RESULT_OK -> {
-                        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                        try {
-                            // Google Sign In was successful, authenticate with Firebase
-                            val account = task.getResult(ApiException::class.java)
-                            loginRegisterViewModel.authWithGoogle(account!!)
-                        } catch (e: ApiException) {
-                            // Google Sign In failed
-                            Timber.i("Google sign in failed $e")
-                            Snackbar.make(
-                                loginBinding.loginLayout, "Authentication Failed.",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
-                        Timber.i("DonationX Google Result $result.data")
-                    }
-                    AppCompatActivity.RESULT_CANCELED -> {
-
-                    }
-                    else -> {}
-                }
-            }
-    }
 }

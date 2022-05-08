@@ -24,7 +24,6 @@ import org.mk.basketballmanager.R
 import org.mk.basketballmanager.activities.MainActivity
 import org.mk.basketballmanager.databinding.AddPlayerFragmentBinding
 import org.mk.basketballmanager.enums.Position
-import org.mk.basketballmanager.fragments.main.UpdatePlayerFragment
 import org.mk.basketballmanager.helpers.showImagePicker
 import org.mk.basketballmanager.models.PlayerModel
 import org.mk.basketballmanager.ui.auth.LoginFragmentDirections

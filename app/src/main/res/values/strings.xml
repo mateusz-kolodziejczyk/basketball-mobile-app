@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BasketballManager</string>
+    <string name="app_name">Basketball Manager</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="signin_header">Sign In</string>
     <string name="view_roster">View Roster</string>
@@ -70,7 +70,7 @@
     <string name="deleting_player">Deleting Player</string>
     <string name="adding_player">Adding Player</string>
     <string name="adding_player_roster">Adding to Roster</string>
-    <string name="firebase_ui">Firebase UI</string>
+    <string name="firebase_ui">Signup or Login</string>
     <string name="access_control">Access Control</string>
     <string name="menu_map">Map</string>
     <string name="team">Team</string>
